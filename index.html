@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khushal Ohlyan | Product Manager Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #0f172a;
+            margin-top: 8px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-slate-200">
+        <nav class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-xl font-bold text-slate-900">Khushal Ohlyan</a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                <a href="#case-studies" class="hover:text-slate-900 transition">Case Studies</a>
+                <a href="#experience" class="hover:text-slate-900 transition">Experience</a>
+                <a href="#education" class="hover:text-slate-900 transition">Education</a>
+                <a href="#skills" class="hover:text-slate-900 transition">Skills</a>
+            </div>
+            <a href="#contact" class="hidden md:block bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-700 transition">Contact Me</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg pt-32 pb-20 px-6">
+        <div class="max-w-4xl mx-auto flex flex-col justify-center">
+            <p class="text-blue-600 font-semibold mb-3">Product Manager | HCI Specialist</p>
+            <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">Building data-driven <br> digital products.</h1>
+            <p class="text-lg text-slate-600 mb-8 max-w-2xl">
+                Product Manager with 3+ years of experience in digital product management, user research, and analytics. Master’s in Human-Computer Interaction with a strong foundation in experiment design, usability, and shipping features that increase engagement and conversion.
+            </p>
+            <div class="flex space-x-4">
+                <a href="#case-studies" class="bg-slate-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-slate-700 transition">View Case Studies</a>
+                <a href="#contact" class="border border-slate-300 text-slate-700 px-6 py-3 rounded-lg font-medium hover:bg-slate-100 transition">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="case-studies" class="py-20 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4 section-title">Product Case Studies</h2>
+            <p class="text-slate-600 mb-12 max-w-2xl">A collection of product strategy, design, and execution case studies focusing on monetization, user experience, and feature prioritization. Click on any card to read the detailed PDF.</p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Case Study 1: 99Acres -->
+                <a href="pdfs/99%20Acres.pdf" target="_blank" class="block bg-slate-50 rounded-xl p-8 shadow-sm card-hover border border-slate-100 hover:border-blue-200">
+                    <span class="text-xs font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">Real Estate / Monetization</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-3 text-slate-900">99acres: Post-Finalization Monetization</h3>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Problem:</strong> No paid offerings for buyers/tenants during the property search and finalization phase. 100% of users stopped using the platform once a property was finalized.</p>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Solution:</strong> Integrated online furniture and appliance renting platforms directly into property listings. Users could furnish properties room-by-room or via packages. API integration allowed real-time inventory and pricing.</p>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">Key Impact & Metrics:</p>
+                        <ul class="list-disc list-inside text-sm text-slate-500 mt-2 space-y-1">
+                            <li>North Star Metric: Revenue generated through furnishings offerings.</li>
+                            <li>Created a completely new monetization stream via commissions.</li>
+                            <li>Future scope included offline partner tie-ups and customized packages based on buying behavior cohorts.</li>
+                        </ul>
+                    </div>
+                </a>
+
+                <!-- Case Study 2: MobiKwik -->
+                <a href="pdfs/MobiKwik.pdf" target="_blank" class="block bg-slate-50 rounded-xl p-8 shadow-sm card-hover border border-slate-100 hover:border-indigo-200">
+                    <span class="text-xs font-bold text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full">FinTech / MVP Strategy</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-3 text-slate-900">MobiKwik: Save Now, Pay Later (SNPL)</h3>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Problem:</strong> Users in lower income brackets needed 12-24 months to save for big-ticket purchases, often relying on high-interest loans.</p>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Solution:</strong> Designed an MVP for "Zip SNPL" allowing users to set financial goals, define time windows, and automate SIPs using existing instruments (Xtra and Zip EMI). Capital generation was calculated dynamically based on credit limits and user preferences.</p>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">Key Impact & Metrics:</p>
+                        <ul class="list-disc list-inside text-sm text-slate-500 mt-2 space-y-1">
+                            <li>North Star Metric: Total investment amount through Zip SNPL.</li>
+                            <li>Tracked CTR of SNPL pop-up, weekly goal adoption, and recurring goal retention.</li>
+                            <li>Identified mitigations for user default risk via upfront credit behavior analysis.</li>
+                        </ul>
+                    </div>
+                </a>
+
+                <!-- Case Study 3: Ola Maps -->
+                <a href="pdfs/Ola.pdf" target="_blank" class="block bg-slate-50 rounded-xl p-8 shadow-sm card-hover border border-slate-100 hover:border-green-200">
+                    <span class="text-xs font-bold text-green-600 bg-green-100 px-3 py-1 rounded-full">Mobility / Search Experience</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-3 text-slate-900">Ola Maps: Interactive Search Experience</h3>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Problem:</strong> Ola needed to build a proprietary map search experience to reduce dependence on Google Maps, starting with the Ola Rides app.</p>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Solution:</strong> Designed an AR-powered "Live View" for passengers to explore categories (e.g., pharmacies) along their route. Added a "Social Connect" layer showing places visited by friends, and a "Virtual Preview" using crowdsourced images.</p>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">Key Impact & Metrics:</p>
+                        <ul class="list-disc list-inside text-sm text-slate-500 mt-2 space-y-1">
+                            <li>Targeted user engagement during "dead time" (waiting for cab/riding).</li>
+                            <li>Measured % of riders interacting with Live View and engagement time vs. total ride time.</li>
+                            <li>Future B2B monetization via AR advertising for local businesses.</li>
+                        </ul>
+                    </div>
+                </a>
+
+                <!-- Case Study 4: NxtWave -->
+                <a href="pdfs/PRD%20NxtWave.pdf" target="_blank" class="block bg-slate-50 rounded-xl p-8 shadow-sm card-hover border border-slate-100 hover:border-red-200">
+                    <span class="text-xs font-bold text-red-600 bg-red-100 px-3 py-1 rounded-full">EdTech / CRM Architecture</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-3 text-slate-900">NxtWave: Sales Buddy 1.0 CRM</h3>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Problem:</strong> 1,000 sales associates managing 100,000 leads lacked a centralized system to track interactions, leading to lead leakage and low productivity.</p>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Solution:</strong> Authored a PRD for a leak-proof CRM tracking the funnel from initial parent call to webinar attendance. Defined logical flags (Active, Invite, Webinar, Eligible), reason codes for failures, and automated lead re-assignment rules.</p>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">Key Impact & Metrics:</p>
+                        <ul class="list-disc list-inside text-sm text-slate-500 mt-2 space-y-1">
+                            <li>North Star Metric: Daily average number of calls per sales associate.</li>
+                            <li>Tracked average lead conversion time and per-associate conversion rates.</li>
+                            <li>Solved number duplication issues during slot booking flows.</li>
+                        </ul>
+                    </div>
+                </a>
+
+                <!-- Case Study 5: Rapido -->
+                <a href="pdfs/Rapido.pdf" target="_blank" class="block bg-slate-50 rounded-xl p-8 shadow-sm card-hover border border-slate-100 hover:border-yellow-200">
+                    <span class="text-xs font-bold text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">Mobility / User Retention</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-3 text-slate-900">Rapido: Reducing User Switching</h3>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Problem:</strong> Users frequently switched between Rapido, Uber, and Ola based on price and ETA, lacking platform loyalty.</p>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Solution:</strong> Prioritized 3 features: "Rapido Regular" (scheduled rides for daily commutes), "Share Live Location" (to help drivers find riders in complex areas), and "Pay Later" (to reduce friction during network issues).</p>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">Key Impact & Metrics:</p>
+                        <ul class="list-disc list-inside text-sm text-slate-500 mt-2 space-y-1">
+                            <li>Tracked Turnaround time to reach rider, DAU/MAU, and Churn rate.</li>
+                            <li>Implemented automated wallet balance alerts for Rapido Regular users.</li>
+                            <li>Designed go-to-market strategy using Agile sprints and beta testing.</li>
+                        </ul>
+                    </div>
+                </a>
+
+                <!-- Case Study 6: Redcliffe Labs -->
+                <a href="pdfs/Redcliffe%20labs.pdf" target="_blank" class="block bg-slate-50 rounded-xl p-8 shadow-sm card-hover border border-slate-100 hover:border-purple-200">
+                    <span class="text-xs font-bold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">HealthTech / Transparency</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-3 text-slate-900">Redcliffe Labs: Sample Control Tower</h3>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Problem:</strong> Once a sample was collected, patients faced a "black box" experience regarding its location, handling, and ETA for results.</p>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Solution:</strong> Designed a Control Tower UI providing end-to-end tracking from booking to report generation. Integrated with LIMS to fetch real-time timestamps and added a "Process Overview" to educate patients on best practices.</p>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">Key Impact & Metrics:</p>
+                        <ul class="list-disc list-inside text-sm text-slate-500 mt-2 space-y-1">
+                            <li>Tracked CTR of "Track my tests" button and time spent in the section.</li>
+                            <li>Reduced customer anxiety by displaying test-specific checkpoints.</li>
+                            <li>Proposed integrating cancellation/rescheduling directly into the tracking flow.</li>
+                        </ul>
+                    </div>
+                </a>
+
+                <!-- Case Study 7: Swiggy -->
+                <a href="pdfs/Swiggy.pdf" target="_blank" class="block bg-slate-50 rounded-xl p-8 shadow-sm card-hover border border-slate-100 hover:border-orange-200">
+                    <span class="text-xs font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">FoodTech / Investor Pitch</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-3 text-slate-900">Swiggy: Swiggy Regular</h3>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Problem:</strong> Independent working professionals faced the "paradox of choice" daily, wasting time selecting restaurants and customizing orders every day.</p>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Solution:</strong> Pitched "Swiggy Regular"—a scheduling feature allowing users to set food items, restaurants, and delivery times for 5-7 days in advance. Used upfront wallet payments to mitigate company liability.</p>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">Key Impact & Metrics:</p>
+                        <ul class="list-disc list-inside text-sm text-slate-500 mt-2 space-y-1">
+                            <li>North Star Metric: Revenue from Swiggy Regular.</li>
+                            <li>Tracked weekly schedules set, average completion rate, and repeat cycles.</li>
+                            <li>Go-to-market included beta release, heatmap tracking, and PMF surveys.</li>
+                        </ul>
+                    </div>
+                </a>
+
+                <!-- Case Study 8: TripAdvisor -->
+                <a href="pdfs/TripAdvisor.pdf" target="_blank" class="block bg-slate-50 rounded-xl p-8 shadow-sm card-hover border border-slate-100 hover:border-teal-200">
+                    <span class="text-xs font-bold text-teal-600 bg-teal-100 px-3 py-1 rounded-full">Travel / UGC Growth</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-3 text-slate-900">TripAdvisor: Growing User Reviews</h3>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Problem:</strong> Users found the review process boring/time-consuming (75%) and lacked tangible incentives to write reviews (50%).</p>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Solution:</strong> Introduced "Kudos" (profile-level recognition redeemable for benefits), "Extreme Reviews Metric" (highlighting 1-star/10-star reviews), and Interactive Forms (conversational UI with property background images to induce nostalgia).</p>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">Key Impact & Metrics:</p>
+                        <ul class="list-disc list-inside text-sm text-slate-500 mt-2 space-y-1">
+                            <li>Measured % of questions answered before bounce.</li>
+                            <li>Tracked adoption of Kudos and redemption rates of indirect benefits.</li>
+                            <li>Validated solutions via surveys targeting extreme positive/negative experiences.</li>
+                        </ul>
+                    </div>
+                </a>
+
+                <!-- Case Study 9: Zluri -->
+                <a href="pdfs/Zluri.pdf" target="_blank" class="block bg-slate-50 rounded-xl p-8 shadow-sm card-hover border border-slate-100 hover:border-pink-200">
+                    <span class="text-xs font-bold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">B2B SaaS / Dashboard</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-3 text-slate-900">Zluri: Employee SaaS Dashboard</h3>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Problem:</strong> Employees lacked awareness of new software tools available in the market, leading to inefficiency and delayed adoption of better tech.</p>
+                    <p class="text-sm text-slate-600 mb-4"><strong>Solution:</strong> Designed an Employee Dashboard featuring App Discovery (showing tools used by similar roles), App Stats (utilization metrics), and App Categorization. Used ML algorithms to suggest cost-benefit alternatives.</p>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">Key Impact & Metrics:</p>
+                        <ul class="list-disc list-inside text-sm text-slate-500 mt-2 space-y-1">
+                            <li>North Star Metric: Number of licenses purchased for employee dashboard.</li>
+                            <li>Tracked employee signups, app discovery time, and churn rate.</li>
+                            <li>Proposed admin restrictions to ensure organizational data privacy.</li>
+                        </ul>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-6 bg-slate-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-900 mb-12 section-title">Professional Experience</h2>
+            
+            <div class="space-y-12">
+                <!-- Job 1 -->
+                <div class="border-l-2 border-slate-200 pl-6 relative">
+                    <div class="absolute w-4 h-4 bg-blue-600 rounded-full -left-[9px] top-0"></div>
+                    <span class="text-sm text-slate-500 font-medium">Feb 2025 - Nov 2025</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-1">Associate Product Manager</h3>
+                    <p class="text-blue-600 font-medium mb-4">Jaguar Land Rover (JLR) | Gaydon, UK</p>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="border-l-2 border-slate-200 pl-6 relative">
+                    <div class="absolute w-4 h-4 bg-slate-300 rounded-full -left-[9px] top-0"></div>
+                    <span class="text-sm text-slate-500 font-medium">Sep 2023 - Dec 2024</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-1">Product Analyst</h3>
+                    <p class="text-blue-600 font-medium mb-4">University of Birmingham | Birmingham, UK</p>
+                </div>
+
+                <!-- Job 3 -->
+                <div class="border-l-2 border-slate-200 pl-6 relative">
+                    <div class="absolute w-4 h-4 bg-slate-300 rounded-full -left-[9px] top-0"></div>
+                    <span class="text-sm text-slate-500 font-medium">Oct 2022 - Sep 2023</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-1">Associate Product Manager</h3>
+                    <p class="text-blue-600 font-medium mb-4">Primeval Labs | Remote</p>
+                </div>
+
+                <!-- Job 4 -->
+                <div class="border-l-2 border-slate-200 pl-6 relative">
+                    <div class="absolute w-4 h-4 bg-slate-300 rounded-full -left-[9px] top-0"></div>
+                    <span class="text-sm text-slate-500 font-medium">Aug 2021 - Jun 2022</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-1">Interior Designer</h3>
+                    <p class="text-blue-600 font-medium mb-4">Square Yards | Gurugram, India</p>
+                </div>
+
+                <!-- Job 5 -->
+                <div class="border-l-2 border-slate-200 pl-6 relative">
+                    <div class="absolute w-4 h-4 bg-slate-300 rounded-full -left-[9px] top-0"></div>
+                    <span class="text-sm text-slate-500 font-medium">Aug 2020 - Jul 2021</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-1">Architect</h3>
+                    <p class="text-blue-600 font-medium mb-4">Envisage | Gurugram, India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Certifications -->
+    <section id="education" class="py-20 px-6 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-900 mb-12 section-title">Education & Certifications</h2>
+            
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold text-slate-900">MSc Human-Computer Interaction</h3>
+                        <p class="text-slate-600">University of Birmingham, UK</p>
+                        <p class="text-sm text-slate-500">Sep 2023 - Oct 2024</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900">Bachelor of Architecture</h3>
+                        <p class="text-slate-600">SUPVA, Rohtak, India</p>
+                        <p class="text-sm text-slate-500">Aug 2015 - Jul 2020</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Certifications</h3>
+                    <ul class="space-y-3 text-slate-600">
+                        <li class="flex items-start">
+                            <span class="text-blue-600 mr-2">▸</span>
+                            <span><strong>IBM AI Product Manager Professional Certificate</strong> <span class="text-sm text-slate-500">(Jan 2026 - Apr 2026)</span></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-600 mr-2">▸</span>
+                            <span><strong>IBM Business Intelligence (BI) Analyst Professional Certificate</strong> <span class="text-sm text-slate-500">(Jan 2026 - Apr 2026)</span></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-600 mr-2">▸</span>
+                            <span><strong>Google UX Design Professional Certificate</strong> <span class="text-sm text-slate-500">(Jan 2026 - Apr 2026)</span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-6 bg-slate-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-900 mb-12 section-title">Core Skills & Tools</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4">Product Management</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Roadmap Planning</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">PRDs</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">User Stories</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">A/B Testing</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Go-to-Market</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">API Integration</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4">Delivery & Agile</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Agile/Scrum</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Sprint Planning</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Backlog Grooming</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Acceptance Criteria</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Change Management</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4">UX & Design</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">User Research</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Usability Testing</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Wireframing</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Interaction Design</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Information Arch.</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4">Analytics & Tools</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">SQL</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Power BI</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Google Analytics</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Jira</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Figma</span>
+                        <span class="bg-slate-100 text-sm px-3 py-1 rounded-full text-slate-700">Confluence</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <footer id="contact" class="bg-slate-900 text-white py-16 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Let's Build Together</h2>
+            <p class="text-slate-400 mb-8 max-w-xl mx-auto">I'm always open to discussing product strategy, new opportunities, or collaborations in digital product management.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-12">
+                <a href="tel:+919217934497" class="flex items-center text-slate-300 hover:text-white transition">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    +91-9217934497
+                </a>
+                <a href="mailto:khushalohlyan@gmail.com" class="flex items-center text-slate-300 hover:text-white transition">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    khushalohlyan@gmail.com
+                </a>
+                <a href="#" target="_blank" class="flex items-center text-slate-300 hover:text-white transition">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    LinkedIn
+                </a>
+            </div>
+            
+            <p class="text-slate-500 text-sm">© 2024 Khushal Ohlyan. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
