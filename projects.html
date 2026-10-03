@@ -1,0 +1,445 @@
+<!doctype html>
+<!-- Khushal Ohlyan · Portfolio · Projects · FolioBase-style: Geist, neutral ramp, pill nav, 1200px grid -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects · Khushal Ohlyan</title>
+<meta name="description" content="UI/UX case studies by Khushal Ohlyan: GoDiverse Unified Database, WINK Finance, DeOS and Guardians of Food, plus NDA work for Jaguar Land Rover.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='32' y='40' font-family='Arial' font-size='22' font-weight='700' fill='%23fafafa' text-anchor='middle'%3EKO%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Tokens (FolioBase neutral ramp) ---------- */
+:root{
+  --bg:#0a0a0a; --surface:#111113; --surface-2:#171717;
+  --border:#242424; --border-2:#383838;
+  --text:#fafafa; --text-2:#a3a3a3; --text-3:#8a8a8a;
+  --ok:#57be7a; --radius:14px; --radius-sm:10px;
+  --font:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:dark}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:#fafafa;color:#0a0a0a}
+a{color:inherit}
+h1,h2,h3,h4{font-weight:600;line-height:1.15;letter-spacing:-.02em}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{position:fixed;left:16px;top:16px;z-index:300;background:#fafafa;color:#0a0a0a;padding:10px 16px;border-radius:8px;text-decoration:none}
+:focus-visible{outline:2px solid #fafafa;outline-offset:3px;border-radius:4px}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:center;padding:10px 20px 0}
+.nav-pill{display:flex;align-items:center;gap:4px;height:48px;padding:0 8px 0 14px;border-radius:999px;border:1px solid var(--border);background:rgba(12,12,12,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:10px}
+.brand-mark{width:26px;height:26px;border-radius:8px;background:#fafafa;color:#0a0a0a;display:grid;place-items:center;font-size:10.5px;font-weight:700;letter-spacing:.02em}
+.brand-name{font-size:14px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--text-2);text-decoration:none;padding:8px 14px;border-radius:999px;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+.nav-links a.active{color:#0a0a0a;background:#fafafa}
+.nav-cta{font-size:13px;font-weight:600;text-decoration:none;color:#0a0a0a;background:#fafafa;padding:9px 16px;border-radius:999px;margin-left:10px;transition:.2s;white-space:nowrap}
+.nav-cta:hover{background:#fff}
+.burger{display:none;width:38px;height:38px;margin-left:8px;border-radius:999px;border:1px solid var(--border-2);background:transparent;color:var(--text);font-size:14px;cursor:pointer}
+.mmenu{position:fixed;top:66px;left:20px;right:20px;z-index:99;display:none;flex-direction:column;gap:2px;padding:10px;border:1px solid var(--border);border-radius:16px;background:rgba(12,12,12,.97);backdrop-filter:blur(16px)}
+.mmenu.open{display:flex}
+.mmenu a{padding:12px 16px;border-radius:10px;text-decoration:none;color:var(--text-2);font-size:15px;font-weight:500}
+.mmenu a:hover,.mmenu a.active{color:var(--text);background:rgba(255,255,255,.06)}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:192px 0 84px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 80% 65% at 50% 0%,#000 30%,transparent 78%);mask-image:radial-gradient(ellipse 80% 65% at 50% 0%,#000 30%,transparent 78%)}
+.hero .wrap{position:relative;z-index:1}
+.avail{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:500;color:var(--text-2);border:1px solid var(--border-2);border-radius:999px;padding:7px 15px;margin-bottom:30px}
+.avail i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.hero h1{font-size:clamp(40px,6vw,74px);line-height:1.03;letter-spacing:-.035em;max-width:860px}
+.hero-sub{margin-top:26px;font-size:clamp(16px,1.8vw,19px);color:var(--text-2);max-width:660px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:72px;background:var(--surface)}
+.fact{padding:22px 24px;border-right:1px solid var(--border)}
+.fact:last-child{border-right:0}
+.fact .k{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600;margin-bottom:6px}
+.fact .v{font-size:14.5px;font-weight:500;color:var(--text)}
+
+/* ---------- Sections ---------- */
+section{padding:96px 0;scroll-margin-top:90px}
+main section{border-top:1px solid var(--border)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:52px}
+.sec-label{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.sec-label b{color:var(--text-2)}
+.sec-label::after{content:"";width:44px;height:1px;background:var(--border-2)}
+.sec-head h2{font-size:clamp(28px,3.4vw,40px);letter-spacing:-.02em;max-width:640px}
+.sec-lead{font-size:15.5px;color:var(--text-2);max-width:420px}
+
+/* ---------- Case study rows ---------- */
+.cs-row{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:64px 0;border-top:1px solid var(--border)}
+.cs-row:first-of-type{border-top:0;padding-top:0}
+.cs-row.flip .cs-thumb{order:2}
+.cs-thumb{display:block;text-decoration:none;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:border-color .25s,transform .25s}
+.cs-thumb:hover{border-color:var(--border-2);transform:translateY(-3px)}
+.cs-thumb .thumb{border:0}
+.cs-meta{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);font-weight:600;margin-bottom:14px}
+.cs-meta .cat{display:flex;align-items:center;gap:8px}
+.cs-meta .pdot{width:8px;height:8px;border-radius:50%}
+.cs-info h3{font-size:clamp(24px,2.8vw,32px);margin-bottom:14px}
+.cs-info h3 a{color:var(--text);text-decoration:none}
+.cs-desc{color:var(--text-2);font-size:15.5px;max-width:560px}
+.cs-facts{display:grid;grid-template-columns:repeat(4,auto);gap:8px 28px;margin:24px 0;padding:16px 0;border-top:1px dashed var(--border);border-bottom:1px dashed var(--border)}
+.cs-facts span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);font-weight:600;margin-bottom:4px}
+.cs-facts b{font-size:13px;font-weight:600;color:var(--text)}
+.cs-outcome{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--text-2);margin-bottom:24px}
+.cs-outcome .o{flex:none;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ok);border:1px solid rgba(87,190,122,.35);background:rgba(87,190,122,.08);border-radius:999px;padding:3px 9px;margin-top:1px}
+.cs-link{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--text);text-decoration:none;border:1px solid var(--border-2);padding:11px 19px;border-radius:999px;transition:.2s}
+.cs-link:hover{background:#fafafa;color:#0a0a0a;border-color:#fafafa}
+.cs-link span{transition:transform .2s}
+.cs-link:hover span{transform:translateX(4px)}
+
+/* ---------- NDA / earlier work ---------- */
+.nda-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.nda-card{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);padding:28px}
+.nda-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.nda-ic{width:38px;height:38px;border-radius:11px;border:1px solid var(--border-2);background:rgba(255,255,255,.03);display:grid;place-items:center;font-size:17px}
+.nda-tag{margin-left:auto;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600}
+.nda-card h3{font-size:18px;margin-bottom:10px}
+.nda-card p{font-size:14px;color:var(--text-2)}
+
+/* ---------- Thumbnails: minimal product hints ---------- */
+.thumb{position:relative;aspect-ratio:16/10;overflow:hidden;display:flex;flex-direction:column}
+.t-bar{display:flex;align-items:center;gap:6px;padding:9px 14px;flex:none}
+.t-bar .d{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.16);flex:none}
+.t-bar .d-r{background:#F26A5E}.t-bar .d-y{background:#F2B33D}.t-bar .d-g{background:#57BE7A}
+.t-url{margin-left:8px;font-size:10px;font-weight:500;color:var(--text-3);background:rgba(255,255,255,.05);border-radius:999px;padding:2px 12px}
+.t-stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px}
+
+/* GoDiverse */
+.t-gd{background:#FAF8F2}
+.t-gd .t-bar{background:#EFEAE0;border-bottom:1px solid #E5E0D3}
+.t-gd .t-url{color:#8A968F;background:#fff;border:1px solid #E5E0D3}
+.gd-search{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E5E0D3;border-radius:999px;padding:10px 18px;box-shadow:0 8px 20px rgba(16,32,26,.06);width:min(300px,80%)}
+.gd-search .mag{width:12px;height:12px;border:2px solid #0E7A54;border-radius:50%;position:relative;flex:none}
+.gd-search .mag::after{content:"";position:absolute;width:6px;height:2px;background:#0E7A54;bottom:-3px;right:-4px;transform:rotate(45deg);border-radius:2px}
+.gd-search span{font-size:12px;color:#8A968F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gd-chips{display:flex;gap:8px}
+.gd-chips i{font-style:normal;font-size:10.5px;font-weight:600;border-radius:999px;padding:5px 12px}
+.gd-chips i.on{background:#0E7A54;color:#fff}
+.gd-chips i.off{background:#F2EFE7;color:#54645C;border:1px solid #E5E0D3}
+
+/* WINK: wallet-connect modal */
+.t-wink{background:radial-gradient(460px 300px at 50% -30%,rgba(46,230,168,.14),transparent 60%),radial-gradient(360px 260px at 50% 132%,rgba(77,132,255,.18),transparent 62%),#0A0C12}
+.t-wink .t-bar{background:#12151E;border-bottom:1px solid rgba(255,255,255,.07)}
+.wk-modal{width:min(250px,78%);background:#12151E;border:1px solid rgba(255,255,255,.12);border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.5);overflow:hidden}
+.wk-mtitle{padding:13px 16px;text-align:center;font-size:12.5px;font-weight:600;color:#edf0f7;border-bottom:1px solid rgba(255,255,255,.08);letter-spacing:-.01em}
+.wk-mlist{padding:12px;display:flex;flex-direction:column;gap:8px}
+.wk-mopt{display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.09);border-radius:11px;padding:9px 12px}
+.wk-mopt .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:13px;flex:none}
+.wk-mopt .nm{font-size:11.5px;font-weight:600;color:#edf0f7;flex:1}
+.wk-bdg{font-size:8px;font-weight:800;color:#2ee6a8;background:rgba(46,230,168,.12);border:1px solid rgba(46,230,168,.3);border-radius:99px;padding:2px 8px;flex:none}
+.wk-mlink{padding:11px 16px 15px;text-align:center;font-size:10px;font-weight:600;color:#4d84ff;border-top:1px solid rgba(255,255,255,.06)}
+
+/* DeOS */
+.t-deos{background:radial-gradient(360px 240px at 74% 10%,rgba(139,92,246,.34),transparent 62%),radial-gradient(320px 220px at 18% 96%,rgba(34,211,238,.18),transparent 62%),#07070F}
+.t-deos .t-bar{background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.07)}
+.ds-window{width:min(280px,84%);background:rgba(16,16,30,.92);border:1px solid rgba(255,255,255,.14);border-radius:14px;overflow:hidden;box-shadow:0 24px 48px rgba(0,0,0,.55)}
+.ds-window::before{content:"";display:block;height:2px;background:linear-gradient(90deg,#a78bfa,#22d3ee)}
+.ds-wbar{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ds-wbar i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.16)}
+.ds-wchip{margin-left:auto;font-size:9px;font-weight:700;color:#a78bfa;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.35);padding:3px 10px;border-radius:99px}
+.ds-wbody{padding:16px 18px 20px;display:flex;flex-direction:column;gap:12px}
+.ds-prompt{display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);border-radius:10px;padding:10px 14px;font-size:11px;color:#6b6e8f}
+.ds-prompt b{color:#a78bfa;font-weight:700}
+.ds-caret{width:2px;height:12px;background:#22d3ee;border-radius:2px;animation:dsCaret 1.2s steps(2,start) infinite}
+@keyframes dsCaret{50%{opacity:0}}
+.ds-lines span{display:block;height:7px;border-radius:99px;background:rgba(255,255,255,.08)}
+.ds-lines span+span{margin-top:9px;opacity:.6}
+@media (prefers-reduced-motion:reduce){.ds-caret{animation:none}}
+
+/* Food */
+.t-food{background:radial-gradient(380px 240px at 50% -12%,rgba(0,114,93,.1),transparent 60%),#F5F8F6}
+.t-food .t-bar{background:#EDF2EF;border-bottom:1px solid #E3EAE6}
+.t-food .t-url{color:#5F6E69;background:#fff;border:1px solid #E3EAE6}
+.fd-phone{width:112px;aspect-ratio:9/18.5;background:#0E1B17;border-radius:19px;padding:6px;box-shadow:0 14px 30px rgba(2,32,25,.16);position:relative;flex:none}
+.fd-scr{width:100%;height:100%;background:#fff;border-radius:14px;display:flex;flex-direction:column;padding:9px 8px 30px;overflow:hidden}
+.fd-notch{width:32px;height:6px;background:#0E1B17;border-radius:99px;margin:0 auto 7px;flex:none}
+.fd-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.fd-h .g{font-size:8px;font-weight:800;color:#121212}
+.fd-h .a{width:13px;height:13px;border-radius:50%;background:#00725D;flex:none}
+.fd-l{font-size:6.5px;font-weight:800;color:#7E8F89;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.fd-item{display:flex;align-items:center;gap:6px;background:#F5F8F6;border-radius:7px;padding:6px 7px}
+.fd-item+.fd-item{opacity:.55;margin-top:4px}
+.fd-item .em{font-size:10px}
+.fd-item .ln{flex:1;height:4px;border-radius:99px;background:#E3EAE6}
+.fd-item .bd{font-size:6.5px;font-weight:800;background:#FEF3C7;color:#B45309;border-radius:99px;padding:2px 5px;flex:none}
+.fd-fab{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);width:22px;height:22px;border-radius:50%;background:#00725D;border:3px solid #fff;box-shadow:0 5px 12px rgba(0,114,93,.35);display:grid;place-items:center;color:#fff;font-size:10px;font-weight:800}
+
+/* ---------- Buttons / footer ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;border:0;font-family:inherit;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;transition:.2s}
+.btn-primary{background:#fafafa;color:#0a0a0a}
+.btn-primary:hover{background:#fff;transform:translateY(-2px)}
+.btn-ghost{border:1px solid var(--border-2);color:var(--text)}
+.btn-ghost:hover{border-color:var(--text-2)}
+footer{border-top:1px solid var(--border);padding:96px 0 40px;background:linear-gradient(180deg,var(--bg) 0%,#000 100%);scroll-margin-top:80px}
+.foot-cta h2{font-size:clamp(30px,4vw,46px);max-width:680px}
+.foot-sub{margin-top:16px;color:var(--text-2);max-width:560px;font-size:15.5px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.foot-bottom{margin-top:80px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;color:var(--text-3)}
+
+/* ---------- Reveal ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1020px){.sec-head{flex-direction:column;align-items:flex-start;gap:14px}}
+@media (max-width:960px){.cs-row{grid-template-columns:1fr;gap:28px;padding:48px 0}.cs-row.flip .cs-thumb{order:0}.cs-facts{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:860px){.nda-grid{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.fact{border-right:0}.fact:nth-child(odd){border-right:1px solid var(--border)}.fact:nth-child(-n+2){border-bottom:1px solid var(--border)}.hero{padding:164px 0 64px}}
+@media (max-width:760px){.nav-links,.nav-cta{display:none}.burger{display:grid;place-items:center}.brand-name{display:none}.nav-pill{padding:0 8px 0 10px}}
+@media (max-width:560px){.facts{grid-template-columns:1fr}.fact{border-right:0!important;border-bottom:1px solid var(--border)!important}.fact:last-child{border-bottom:0!important}section{padding:64px 0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#case-studies">Skip to content</a>
+
+<nav class="nav" aria-label="Main navigation">
+  <div class="nav-pill">
+    <a class="brand" href="index.html"><span class="brand-mark">KO</span><span class="brand-name">Khushal Ohlyan</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="projects.html" class="active" aria-current="page">Projects</a>
+      <a href="about.html">About</a>
+    </div>
+    <a class="nav-cta" href="#contact">Get in touch</a>
+    <button class="burger" id="burger" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+<div class="mmenu" id="mmenu">
+  <a href="index.html">Home</a>
+  <a href="projects.html" class="active">Projects</a>
+  <a href="about.html">About</a>
+  <a href="#contact">Get in touch</a>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="avail reveal"><i></i>4 case studies · 4 domains</p>
+    <h1 class="reveal">Case studies,<br>not screenshots.</h1>
+    <p class="hero-sub reveal">Deep dives into research, decisions and outcomes. Each one is a five-minute read with the trade-offs visible, plus selected NDA work I'm happy to talk through in person.</p>
+    <div class="facts reveal">
+      <div class="fact"><span class="k">Fintech</span><span class="v">WINK Finance</span></div>
+      <div class="fact"><span class="k">B2B SaaS</span><span class="v">GoDiverse</span></div>
+      <div class="fact"><span class="k">Automotive</span><span class="v">JLR · EV HMI</span></div>
+      <div class="fact"><span class="k">Proptech</span><span class="v">Square Yards</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ============ 01 · CASE STUDIES ============ -->
+  <section id="case-studies">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <p class="sec-label"><b>01</b> Case studies</p>
+          <h2>The work, end to end</h2>
+        </div>
+        <p class="sec-lead">Every project: the problem, the research, the system, and what changed after launch.</p>
+      </div>
+
+      <!-- 01 GoDiverse -->
+      <article class="cs-row reveal">
+        <a class="cs-thumb" href="GoDiverse.html" aria-label="GoDiverse Unified Database case study">
+          <div class="thumb t-gd" aria-hidden="true">
+            <div class="t-bar"><i class="d d-r"></i><i class="d d-y"></i><i class="d d-g"></i><span class="t-url">godiverse.co.uk</span></div>
+            <div class="t-stage">
+              <div class="gd-search"><span class="mag"></span><span>Find diverse suppliers</span></div>
+              <div class="gd-chips"><i class="on">Women owned</i><i class="off">Manchester</i></div>
+            </div>
+          </div>
+        </a>
+        <div class="cs-info">
+          <p class="cs-meta"><span class="cat"><i class="pdot" style="background:#0E7A54"></i>B2B SaaS · Supplier diversity</span><span>2024</span></p>
+          <h3><a href="GoDiverse.html">GoDiverse Unified Database</a></h3>
+          <p class="cs-desc">A supplier diversity portal helping UK corporates and tier-1 suppliers discover, verify and shortlist certified diverse businesses in minutes instead of weeks. I designed the entire experience: research synthesis, field-level IA for both buyer and supplier sides, 40+ screens, and the component system behind them.</p>
+          <div class="cs-facts">
+            <div><span>Role</span><b>Product Designer, end-to-end</b></div>
+            <div><span>Timeline</span><b>8 weeks + iteration</b></div>
+            <div><span>Platform</span><b>Responsive web</b></div>
+            <div><span>Tools</span><b>Figma · FigJam · Maze</b></div>
+          </div>
+          <p class="cs-outcome"><span class="o">Outcome</span><span>500+ suppliers searchable with verified badges. Shortlists assembled in minutes, not days.</span></p>
+          <a class="cs-link" href="GoDiverse.html">Read the case study <span>→</span></a>
+        </div>
+      </article>
+
+      <!-- 02 WINK Finance -->
+      <article class="cs-row flip reveal">
+        <a class="cs-thumb" href="Wink%20finance.html" aria-label="WINK Finance case study">
+          <div class="thumb t-wink" aria-hidden="true">
+            <div class="t-bar"><i class="d"></i><i class="d"></i><i class="d"></i><span class="t-url">wink.finance</span></div>
+            <div class="t-stage">
+              <div class="wk-modal">
+                <div class="wk-mtitle">Connect a Wallet</div>
+                <div class="wk-mlist">
+                  <div class="wk-mopt"><span class="ic" style="background:rgba(242,153,74,.16)">🦊</span><span class="nm">MetaMask</span><span class="wk-bdg">Recent</span></div>
+                  <div class="wk-mopt"><span class="ic" style="background:rgba(77,132,255,.16)">🔗</span><span class="nm">WalletConnect</span></div>
+                </div>
+                <div class="wk-mlink">What's a wallet?</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <div class="cs-info">
+          <p class="cs-meta"><span class="cat"><i class="pdot" style="background:#2EE6A8"></i>Fintech · DeFi</span><span>2022 to 2023</span></p>
+          <h3><a href="Wink%20finance.html">WINK Finance</a></h3>
+          <p class="cs-desc">A decentralized earning platform on Polygon where the core design problem was trust. I owned the end-to-end experience: wallet onboarding, the portfolio dashboard, deposit and token-conversion flows, plus a Figma component library that cut handoff time by 25%.</p>
+          <div class="cs-facts">
+            <div><span>Role</span><b>UI/UX Designer</b></div>
+            <div><span>Timeline</span><b>1 year</b></div>
+            <div><span>Platform</span><b>Responsive web</b></div>
+            <div><span>Tools</span><b>Figma · FigJam · Maze</b></div>
+          </div>
+          <p class="cs-outcome"><span class="o">Outcome</span><span>-22% sign-up drop-off through progressive disclosure. First yield earned in under two minutes.</span></p>
+          <a class="cs-link" href="Wink%20finance.html">Read the case study <span>→</span></a>
+        </div>
+      </article>
+
+      <!-- 03 DeOS -->
+      <article class="cs-row reveal">
+        <a class="cs-thumb" href="Deos.html" aria-label="DeOS case study">
+          <div class="thumb t-deos" aria-hidden="true">
+            <div class="t-bar"><i class="d"></i><i class="d"></i><i class="d"></i><span class="t-url">deos · webos</span></div>
+            <div class="t-stage">
+              <div class="ds-window">
+                <div class="ds-wbar"><i></i><i></i><i></i><span class="ds-wchip">✦ AI</span></div>
+                <div class="ds-wbody">
+                  <div class="ds-prompt"><b>✦</b> Summarize this note…<i class="ds-caret"></i></div>
+                  <div class="ds-lines"><span style="width:88%"></span><span style="width:60%"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <div class="cs-info">
+          <p class="cs-meta"><span class="cat"><i class="pdot" style="background:#A78BFA"></i>WebOS · Web3</span><span>2023</span></p>
+          <h3><a href="Deos.html">DeOS: the Decentralized Operating Experience</a></h3>
+          <p class="cs-desc">A dual-layer product merging the browser and the operating system into one calm, AI-driven workspace, built on a peer-to-peer network where users own their data, hosting and compute. I ran discovery, defined the IA around contexts rather than apps, and built the visual direction and component system.</p>
+          <div class="cs-facts">
+            <div><span>Role</span><b>Product & UI/UX Designer</b></div>
+            <div><span>Scope</span><b>Research to prototype</b></div>
+            <div><span>Platform</span><b>Desktop web</b></div>
+            <div><span>Tools</span><b>Figma · FigJam · Notion</b></div>
+          </div>
+          <p class="cs-outcome"><span class="o">Outcome</span><span>A validated concept system, usability-tested with 8 users and iterated on hierarchy and labelling.</span></p>
+          <a class="cs-link" href="Deos.html">Read the case study <span>→</span></a>
+        </div>
+      </article>
+
+      <!-- 04 Guardians of Food -->
+      <article class="cs-row flip reveal">
+        <a class="cs-thumb" href="Food%20app.html" aria-label="Guardians of Food case study">
+          <div class="thumb t-food" aria-hidden="true">
+            <div class="t-bar"><i class="d d-r"></i><i class="d d-y"></i><i class="d d-g"></i><span class="t-url">guardiansoffood.app</span></div>
+            <div class="t-stage">
+              <div class="fd-phone">
+                <div class="fd-scr">
+                  <div class="fd-notch"></div>
+                  <div class="fd-h"><span class="g">Hi 👋</span><span class="a"></span></div>
+                  <div class="fd-l">Expiring soon</div>
+                  <div class="fd-item"><span class="em">🥛</span><span class="ln"></span><span class="bd">2 days</span></div>
+                  <div class="fd-item"><span class="em">🥬</span><span class="ln"></span><span class="bd">2 days</span></div>
+                </div>
+                <span class="fd-fab">+</span>
+              </div>
+            </div>
+          </div>
+        </a>
+        <div class="cs-info">
+          <p class="cs-meta"><span class="cat"><i class="pdot" style="background:#00725D"></i>Mobile · MSc HCI</span><span>2024</span></p>
+          <h3><a href="Food%20app.html">Guardians of Food</a></h3>
+          <p class="cs-desc">An MSc Human-Computer Interaction project born from a climate question: households generate 71% of the UK's food waste. Our team of five designed a pantry-tracking app with expiry nudges and recipe matching, carried through two surveys, six interviews and a full design-thinking cycle.</p>
+          <div class="cs-facts">
+            <div><span>Role</span><b>UX Research · UI Design</b></div>
+            <div><span>Team</span><b>Group of 5</b></div>
+            <div><span>Duration</span><b>12 weeks</b></div>
+            <div><span>Tools</span><b>Figma · FigJam</b></div>
+          </div>
+          <p class="cs-outcome"><span class="o">Outcome</span><span>A usability-tested high-fidelity concept, plus a prioritised roadmap of next iterations.</span></p>
+          <a class="cs-link" href="Food%20app.html">Read the case study <span>→</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 02 · NDA & EARLIER WORK ============ -->
+  <section id="more">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <p class="sec-label"><b>02</b> Selected experience</p>
+          <h2>Work that lives behind NDAs</h2>
+        </div>
+        <p class="sec-lead">The screens can't be shown. The process still can.</p>
+      </div>
+      <div class="nda-grid">
+        <article class="nda-card reveal">
+          <div class="nda-top"><span class="nda-ic">🔒</span><span class="nda-tag">Under NDA · 2025</span></div>
+          <h3>Jaguar Land Rover · Next-gen EV HMI</h3>
+          <p>Associate Product Manager (UX/HMI) on the in-vehicle digital experience for two future EV programs, covering the centre console and connected services interfaces. Translated research into interaction flows and high-fidelity prototypes within JLR's design system, and ran cross-functional reviews aligned to engineering feasibility and WCAG 2.1 AA. Happy to walk through the process in conversation.</p>
+        </article>
+        <article class="nda-card reveal">
+          <div class="nda-top"><span class="nda-ic">🏙️</span><span class="nda-tag">2021 to 2022</span></div>
+          <h3>Square Yards · SQ Beats & PropVR</h3>
+          <p>Designed SQ Beats, the end-to-end platform for Square Yards' interior design vertical, from booking to project handover, and integrated PropVR walkthroughs directly into the booking flow. The work contributed to a 30% lift in sales conversions and 400% engagement growth, alongside a design system that cut design and front-end timelines by 30%.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ 03 · CONTACT / FOOTER ============ -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="sec-label"><b>03</b> Contact</p>
+      <h2>Want the story behind the screens?</h2>
+      <p class="foot-sub">Each case study is a five-minute read. And if you'd like to hear the NDA ones, let's talk. The fastest way to reach me is email.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary" id="emailBtn" type="button" title="Click to copy email address">khushalohlyan@gmail.com</button>
+        <!-- ✏️ Update with your actual LinkedIn URL -->
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/khushalohlyan" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Khushal Ohlyan</span>
+      <span>UI/UX Portfolio</span>
+      <span>Gurugram, India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+  var b=document.getElementById('burger'),m=document.getElementById('mmenu');
+  if(b&&m){
+    b.addEventListener('click',function(){m.classList.toggle('open');b.textContent=m.classList.contains('open')?'✕':'☰'});
+    m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');b.textContent='☰'})});
+  }
+  /* Email button: copies the address, confirms visually, falls back to mail app */
+  var eb=document.getElementById('emailBtn');
+  if(eb){eb.addEventListener('click',function(){
+    var em='khushalohlyan@gmail.com';
+    var ok=function(){eb.textContent='Email copied ✓';setTimeout(function(){eb.textContent=em},2200)};
+    var mail=function(){try{window.location.href='mailto:'+em}catch(e){}};
+    var fb=function(){
+      var t=document.createElement('textarea');t.value=em;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();
+      try{var done=document.execCommand('copy');if(done){ok()}else{mail()}}catch(e){mail()}
+      document.body.removeChild(t);
+    };
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(em).then(ok,fb)}else{fb()}
+  })}
+})();
+</script>
+</body>
+</html>
