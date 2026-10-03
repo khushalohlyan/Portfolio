@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WINK Finance UI/UX Case Study | Portfolio</title>
+<meta name="description" content="UI/UX case study: designing a frictionless DeFi earning experience for WINK Finance, covering wallet onboarding, the dashboard, earning programs, and token conversion.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   WINK FINANCE — CASE STUDY
+   Dark, editorial portfolio layout
+   ============================================================ */
+:root{
+  --bg:        #07090e;
+  --bg-2:      #0a0d14;
+  --surface:   #10141e;
+  --surface-2: #151a27;
+  --line:      rgba(255,255,255,.08);
+  --line-2:    rgba(255,255,255,.14);
+  --text:      #edf0f7;
+  --muted:     #98a1b6;
+  --faint:     #6b7488;
+  --violet:    #8b7bff;
+  --green:     #2ee6a8;
+  --green-dim: rgba(46,230,168,.12);
+  --blue:      #4d84ff;
+  --blue-dim:  rgba(77,132,255,.14);
+  --radius:    16px;
+  --font-head: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--violet);color:#fff}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(7,9,14,.75);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:1120px;margin:0 auto;padding:14px 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.nav-logo{
+  font-family:var(--font-head);font-weight:700;font-size:15px;
+  letter-spacing:.02em;display:flex;align-items:center;gap:10px;
+}
+.nav-logo .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.nav-links{display:flex;gap:4px;flex-wrap:wrap}
+.nav-links a{
+  font-size:13px;color:var(--muted);padding:6px 11px;border-radius:8px;
+  transition:.2s;
+}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+.nav-links a.active{color:var(--text);background:rgba(139,123,255,.14)}
+.nav-cta{
+  font-size:13px;font-weight:600;color:var(--text);
+  border:1px solid var(--line-2);padding:7px 14px;border-radius:10px;
+  transition:.2s;white-space:nowrap;
+}
+.nav-cta:hover{border-color:var(--violet);color:var(--violet)}
+.progress{
+  position:absolute;bottom:-1px;left:0;height:2px;width:0%;
+  background:linear-gradient(90deg,var(--violet),var(--green));
+}
+@media(max-width:860px){.nav-links{display:none}}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;
+  padding:170px 0 90px;
+  background:
+    radial-gradient(900px 420px at 75% -10%, rgba(139,123,255,.14), transparent 60%),
+    radial-gradient(700px 380px at 10% 0%, rgba(46,230,168,.07), transparent 60%),
+    var(--bg);
+}
+.hero::after{ /* faint grid texture */
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--green);background:var(--green-dim);
+  border:1px solid rgba(46,230,168,.25);
+  padding:7px 14px;border-radius:100px;margin-bottom:26px;
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.hero h1{
+  font-family:var(--font-head);
+  font-size:clamp(40px,6.5vw,76px);
+  line-height:1.04;letter-spacing:-.02em;font-weight:700;
+  max-width:900px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(92deg,var(--violet),var(--green));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero .lede{
+  margin-top:24px;font-size:clamp(16px,2vw,19px);color:var(--muted);
+  max-width:640px;
+}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.tag{
+  font-size:12.5px;font-weight:500;color:var(--muted);
+  border:1px solid var(--line-2);border-radius:100px;padding:6px 14px;
+}
+
+/* Meta grid */
+.meta-grid{
+  margin-top:56px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;
+}
+.meta-cell{background:var(--surface);padding:22px 24px}
+.meta-cell .k{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);font-weight:600;margin-bottom:6px;
+}
+.meta-cell .v{font-size:15px;font-weight:600;color:var(--text)}
+
+/* Browser-framed hero image */
+.browser{
+  margin-top:64px;border:1px solid var(--line-2);border-radius:14px;
+  overflow:hidden;background:var(--surface);
+  box-shadow:0 40px 100px -30px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.02);
+}
+.browser-bar{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;background:var(--surface-2);border-bottom:1px solid var(--line);
+}
+.browser-bar .dots{display:flex;gap:6px}
+.browser-bar .dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.14)}
+.browser-bar .url{
+  flex:1;font-size:12px;color:var(--faint);background:rgba(255,255,255,.05);
+  border-radius:7px;padding:5px 12px;text-align:center;font-family:ui-monospace,monospace;
+}
+.browser img{width:100%}
+
+/* ---------- Sections ---------- */
+section{padding:100px 0;border-top:1px solid var(--line)}
+.sec-head{margin-bottom:52px;max-width:760px}
+.sec-num{
+  font-family:var(--font-head);font-size:13px;font-weight:600;letter-spacing:.18em;
+  color:var(--violet);text-transform:uppercase;display:flex;align-items:center;gap:14px;
+}
+.sec-num::after{content:"";height:1px;width:56px;background:var(--line-2)}
+.sec-head h2{
+  font-family:var(--font-head);font-size:clamp(28px,4vw,42px);
+  letter-spacing:-.015em;line-height:1.15;margin-top:14px;font-weight:700;
+}
+.sec-head p{margin-top:16px;color:var(--muted);font-size:17px}
+h3.sub{
+  font-family:var(--font-head);font-size:21px;font-weight:600;
+  margin:56px 0 22px;letter-spacing:-.01em;
+}
+
+/* Two-col generic */
+.cols{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+@media(max-width:880px){.cols{grid-template-columns:1fr}}
+.body-copy p{color:var(--muted);margin-bottom:18px}
+.body-copy strong{color:var(--text)}
+.body-copy .highlight{
+  border-left:3px solid var(--green);padding:4px 0 4px 20px;margin:26px 0;
+  font-size:18px;color:var(--text);font-weight:500;line-height:1.6;
+}
+
+/* Cards */
+.card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:28px;
+  transition:border-color .25s, transform .25s;
+}
+.card:hover{border-color:var(--line-2)}
+.card h4{font-family:var(--font-head);font-size:17px;font-weight:600;margin-bottom:10px}
+.card p{font-size:14.5px;color:var(--muted)}
+.card .icon{
+  width:40px;height:40px;border-radius:11px;display:flex;align-items:center;
+  justify-content:center;font-size:18px;margin-bottom:16px;
+  background:var(--blue-dim);border:1px solid var(--line-2);
+}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:960px){.grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+/* Research findings list */
+.finding{
+  display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--line);
+}
+.finding:last-child{border-bottom:none}
+.finding .n{
+  font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--green);
+  min-width:34px;height:34px;border:1px solid rgba(46,230,168,.3);
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  background:var(--green-dim);
+}
+.finding h5{font-size:15.5px;font-weight:600;margin-bottom:4px}
+.finding p{font-size:14.5px;color:var(--muted)}
+
+/* Principle cards */
+.principle{position:relative;overflow:hidden}
+.principle .p-num{
+  position:absolute;top:14px;right:18px;font-family:var(--font-head);
+  font-size:44px;font-weight:700;color:rgba(255,255,255,.05);line-height:1;
+}
+.principle ul{margin-top:10px;padding-left:18px;color:var(--muted);font-size:14px}
+.principle ul li{margin-bottom:5px}
+
+/* ---------- Flow diagram ---------- */
+.flow{
+  display:flex;flex-wrap:wrap;align-items:stretch;gap:12px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px;
+}
+.flow-step{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--surface-2);border:1px solid var(--line-2);
+  border-radius:12px;padding:14px 16px;min-width:158px;flex:1 1 168px;
+}
+.flow-step .fn{
+  font-family:var(--font-head);font-weight:700;font-size:12px;color:var(--violet);
+  background:rgba(139,123,255,.14);border:1px solid rgba(139,123,255,.3);
+  width:24px;height:24px;border-radius:7px;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;margin-top:2px;
+}
+.flow-step strong{display:block;font-size:13.5px;font-weight:600}
+.flow-step small{display:block;font-size:12px;color:var(--faint);line-height:1.45;margin-top:2px}
+.flow-arrow{
+  align-self:center;color:var(--faint);font-size:16px;flex:0 0 auto;
+}
+.flow-note{
+  margin-top:18px;font-size:14px;color:var(--muted);
+  display:flex;gap:10px;align-items:flex-start;
+}
+.flow-note b{color:var(--green)}
+
+/* ---------- Screen deep-dives ---------- */
+.screen-block{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  padding:52px 0;border-bottom:1px solid var(--line);
+}
+.screen-block:last-child{border-bottom:none;padding-bottom:0}
+.screen-block:first-of-type{padding-top:8px}
+@media(max-width:920px){.screen-block{grid-template-columns:1fr;gap:26px}}
+.screen-block.flip .shot{order:2}
+@media(max-width:920px){.screen-block.flip .shot{order:0}}
+
+.shot{
+  border:1px solid var(--line-2);border-radius:12px;overflow:hidden;
+  background:var(--surface);cursor:zoom-in;
+  box-shadow:0 24px 60px -24px rgba(0,0,0,.75);
+  transition:transform .3s;
+}
+.shot:hover{transform:translateY(-3px)}
+.shot img{width:100%}
+.shot figcaption{
+  font-size:12px;color:var(--faint);padding:11px 16px;
+  border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;
+  font-family:ui-monospace,monospace;
+}
+.shot figcaption::before{content:"▣";color:var(--green);font-size:11px}
+
+.screen-num{
+  font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.2em;
+  color:var(--green);text-transform:uppercase;
+}
+.screen-block h3{
+  font-family:var(--font-head);font-size:26px;font-weight:600;
+  letter-spacing:-.01em;margin:10px 0 14px;
+}
+.screen-block .desc{color:var(--muted);font-size:15.5px;margin-bottom:22px}
+.decisions{list-style:none;display:grid;gap:12px}
+.decisions li{
+  display:flex;gap:13px;font-size:14.5px;color:var(--muted);line-height:1.6;
+}
+.decisions li::before{
+  content:"→";color:var(--violet);font-weight:700;flex-shrink:0;
+}
+.decisions li b{color:var(--text);font-weight:600}
+
+/* ---------- Design system ---------- */
+.ds-panel{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:32px;margin-bottom:20px;
+}
+.ds-title{
+  font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:22px;display:flex;align-items:center;gap:12px;
+}
+.ds-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
+.swatch{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-2)}
+.swatch .chip{height:64px}
+.swatch .info{padding:10px 12px}
+.swatch .nm{font-size:12.5px;font-weight:600}
+.swatch .hx{
+  font-size:11px;color:var(--faint);font-family:ui-monospace,monospace;
+}
+.type-sample .t1{font-family:var(--font-head);font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.type-sample .t2{font-family:var(--font-head);font-size:22px;font-weight:600;margin-top:10px}
+.type-sample .t3{font-size:15px;color:var(--muted);margin-top:10px}
+.type-sample .t4{font-size:13px;color:var(--faint);margin-top:8px;font-family:ui-monospace,monospace}
+.type-row{
+  display:grid;grid-template-columns:170px 1fr;gap:24px;align-items:center;
+  padding:14px 0;border-bottom:1px solid var(--line);
+}
+.type-row:last-child{border-bottom:none}
+.type-row .lbl{font-size:12px;color:var(--faint);font-family:ui-monospace,monospace}
+
+/* Component recreations (product-accurate) */
+.comp-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn-demo{
+  font-size:14px;font-weight:600;padding:11px 22px;border-radius:10px;
+  display:inline-flex;align-items:center;gap:9px;
+}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{filter:brightness(1.1)}
+.btn-ghost{border:1px solid var(--line-2);color:var(--text)}
+.btn-disabled{background:rgba(255,255,255,.08);color:var(--faint);cursor:not-allowed}
+.badge-apy{
+  font-size:12.5px;font-weight:600;color:var(--green);
+  background:var(--green-dim);border:1px solid rgba(46,230,168,.3);
+  padding:5px 12px;border-radius:100px;
+}
+.badge-apr{
+  font-size:12.5px;font-weight:600;color:var(--violet);
+  background:rgba(139,123,255,.12);border:1px solid rgba(139,123,255,.3);
+  padding:5px 12px;border-radius:100px;
+}
+.token-row-demo{
+  display:flex;align-items:center;gap:14px;width:100%;
+  background:var(--surface-2);border:1px solid var(--line-2);
+  border-radius:12px;padding:14px 18px;
+}
+.token-row-demo .tk{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;font-family:var(--font-head);
+}
+.tk-g{background:var(--green-dim);color:var(--green);border:1px solid rgba(46,230,168,.35)}
+.tk-b{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(77,132,255,.35)}
+.tk-w{background:rgba(255,255,255,.08);color:var(--text);border:1px solid var(--line-2)}
+.token-row-demo .tname{font-size:14px;font-weight:600}
+.token-row-demo .tval{font-size:13px;color:var(--faint)}
+.token-row-demo .tactions{margin-left:auto;display:flex;gap:8px}
+.tact{
+  font-size:11.5px;font-weight:600;color:var(--muted);
+  border:1px solid var(--line-2);border-radius:8px;padding:5px 11px;
+}
+.state-pills{display:flex;flex-wrap:wrap;gap:12px}
+.state-pill{
+  font-size:12.5px;padding:7px 15px;border-radius:100px;font-weight:600;
+  border:1px solid var(--line-2);color:var(--muted);display:inline-flex;gap:8px;align-items:center;
+}
+.sp-dot{width:7px;height:7px;border-radius:50%}
+.sp-empty{border-color:rgba(139,123,255,.35)}
+.sp-empty .sp-dot{background:var(--violet)}
+.sp-pending{border-color:rgba(255,184,51,.35)}
+.sp-pending .sp-dot{background:#ffb833;animation:pulse 1.4s infinite}
+.sp-success{border-color:rgba(46,230,168,.35)}
+.sp-success .sp-dot{background:var(--green)}
+.sp-error{border-color:rgba(255,90,90,.35)}
+.sp-error .sp-dot{background:#ff5a5a}
+@keyframes pulse{50%{opacity:.35}}
+
+/* ---------- Challenges ---------- */
+.challenge{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px;position:relative;overflow:hidden;
+}
+.challenge::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--violet),transparent);
+}
+.challenge .tagline{
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:#ffb833;margin-bottom:12px;
+}
+.challenge .tagline.ok{color:var(--green)}
+.challenge h4{font-family:var(--font-head);font-size:17px;font-weight:600;margin-bottom:10px;line-height:1.4}
+.challenge p{font-size:14.5px;color:var(--muted)}
+
+/* ---------- Impact ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:960px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 26px;position:relative;overflow:hidden;
+}
+.stat::after{
+  content:"";position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--violet),var(--green));
+  transform:scaleX(0);transform-origin:left;transition:transform .5s;
+}
+.stat:hover::after{transform:scaleX(1)}
+.stat .big{
+  font-family:var(--font-head);font-size:clamp(32px,4vw,44px);font-weight:700;
+  letter-spacing:-.02em;line-height:1;
+  background:linear-gradient(92deg,var(--text),var(--violet));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.stat .lbl{font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.5}
+.impact-note{
+  margin-top:24px;font-size:12.5px;color:var(--faint);
+  border:1px dashed var(--line-2);border-radius:10px;padding:14px 18px;
+}
+
+/* ---------- Learnings ---------- */
+.learning{
+  display:flex;gap:24px;padding:34px 0;border-bottom:1px solid var(--line);
+}
+.learning:last-child{border-bottom:none}
+.learning .ln{
+  font-family:var(--font-head);font-size:15px;font-weight:700;flex-shrink:0;
+  width:46px;height:46px;border-radius:14px;display:flex;align-items:center;
+  justify-content:center;color:var(--violet);
+  background:rgba(139,123,255,.1);border:1px solid rgba(139,123,255,.28);
+}
+.learning h4{font-family:var(--font-head);font-size:19px;font-weight:600;margin-bottom:8px}
+.learning p{color:var(--muted);font-size:15px;max-width:720px}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--line);padding:70px 0 50px;background:var(--bg-2)}
+.foot-grid{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.foot-cta h3{
+  font-family:var(--font-head);font-size:clamp(24px,3.4vw,34px);font-weight:700;
+  letter-spacing:-.015em;line-height:1.2;
+}
+.foot-cta p{color:var(--muted);margin-top:10px}
+.foot-links{display:flex;gap:12px;flex-wrap:wrap}
+.foot-links a{
+  border:1px solid var(--line-2);padding:11px 20px;border-radius:12px;
+  font-size:14px;font-weight:600;transition:.2s;
+}
+.foot-links a:hover{border-color:var(--green);color:var(--green)}
+.foot-bottom{
+  margin-top:56px;padding-top:24px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:12.5px;color:var(--faint);
+}
+
+/* ---------- Reveal animation ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- Lightbox ---------- */
+.lightbox{
+  position:fixed;inset:0;z-index:200;background:rgba(4,5,9,.92);
+  backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;
+  padding:34px;cursor:zoom-out;
+}
+.lightbox.open{display:flex}
+.lightbox img{
+  max-width:min(1200px,100%);max-height:88vh;border-radius:12px;
+  border:1px solid var(--line-2);box-shadow:0 40px 120px rgba(0,0,0,.9);
+}
+.lightbox .lb-hint{
+  position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
+  font-size:12px;color:var(--faint);letter-spacing:.08em;
+}
+
+/* Back to top */
+.to-top{
+  position:fixed;right:26px;bottom:26px;z-index:90;width:44px;height:44px;
+  border-radius:12px;background:var(--surface);border:1px solid var(--line-2);
+  color:var(--muted);display:flex;align-items:center;justify-content:center;
+  font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.3s;
+}
+.to-top.show{opacity:1;pointer-events:auto}
+.to-top:hover{color:var(--green);border-color:var(--green)}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo"><span class="dot"></span>WINK Finance Case Study</a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#problem">Problem</a>
+      <a href="#research">Research</a>
+      <a href="#flow">Flow</a>
+      <a href="#screens">Screens</a>
+      <a href="#system">Design System</a>
+      <a href="#challenges">Challenges</a>
+      <a href="#impact">Impact</a>
+    </div>
+    <!-- ✏️ EDIT: point to your portfolio / resume -->
+    <a href="#footer" class="nav-cta">Get in touch ↗</a>
+  </div>
+  <div class="progress" id="progress"></div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Case Study · DeFi / Web3 · 2024</div>
+    <h1>From <em>“What's a wallet?”</em> to earning yield in two minutes.</h1>
+    <p class="lede">
+      How I designed WINK Finance, a decentralized earning platform on Polygon,
+      turning the most intimidating corner of Web3 (wallet onboarding, token approvals,
+      and yield programs) into a calm, guided, trust-first experience.
+    </p>
+    <div class="tags">
+      <span class="tag">Product Design</span>
+      <span class="tag">UX Research</span>
+      <span class="tag">Web3 / DeFi</span>
+      <span class="tag">Interaction Design</span>
+      <span class="tag">Design System</span>
+    </div>
+
+    <!-- ✏️ EDIT: role, timeline & team to match your real involvement -->
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="k">My Role</div><div class="v">Product Designer</div></div>
+      <div class="meta-cell"><div class="k">Platform</div><div class="v">Responsive Web</div></div>
+      <div class="meta-cell"><div class="k">Tools</div><div class="v">Figma · FigJam · Maze</div></div>
+    </div>
+
+    <figure class="browser reveal">
+      <div class="browser-bar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="url">https://wink.finance/</div>
+      </div>
+      <img src="https://z-cdn-media.chatglm.cn/files/ef309a3b-b0df-4af4-a92c-4d2a90ac87b7.png?auth_key=1890425067-4fbdb0cda5414e0a88e70face3f9657f-0-937054fde7ec626dd5993f9557eb536f" alt="WINK Finance landing page showing Earn USDW and Earn WINK programs with total value locked stats">
+    </figure>
+  </div>
+</header>
+
+<!-- ================= 01 OVERVIEW ================= -->
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">01 Overview</div>
+      <h2>A DeFi earning platform with one job: make yield feel safe.</h2>
+    </div>
+    <div class="cols">
+      <div class="body-copy reveal">
+        <p>
+          <strong>WINK Finance</strong> is a decentralized earning platform built on Polygon.
+          Users deposit <strong>WINK</strong> or its stablecoin <strong>USDW</strong> and earn
+          sustainable on-chain yield (Earn&nbsp;USDW: <strong>APY 8–20%</strong> ·
+          Earn&nbsp;WINK: <strong>APR 29.55%</strong>), convert tokens, and manage their
+          entire portfolio from one dashboard.
+        </p>
+        <p>
+          I owned the product surface end-to-end: the marketing landing page, wallet onboarding,
+          the portfolio dashboard, earning &amp; deposit flows, the token conversion interface,
+          account management, and the design system that binds it all together.
+        </p>
+        <div class="highlight">
+          The core design question: how do you communicate <em>trust</em> in an industry where a
+          single misunderstood button can cost someone their savings?
+        </div>
+      </div>
+      <div>
+        <div class="card reveal" style="margin-bottom:20px">
+          <div class="icon">🪙</div>
+          <h4>The product in one flow</h4>
+          <p style="margin-bottom:0">
+            Connect a wallet → view balances (WINK · USDW · USDT) → deposit into an earning
+            program → convert or send tokens → track earnings year-to-date.
+          </p>
+        </div>
+        <div class="card reveal">
+          <div class="icon" style="background:var(--green-dim)">📈</div>
+          <h4>Why it matters</h4>
+          <p style="margin-bottom:0">
+            Yield platforms historically lose the majority of first-time users at wallet
+            connection. Every screen I designed had to lower that wall.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 PROBLEM ================= -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">02 The Problem</div>
+      <h2>DeFi rewards your money but punishes your attention.</h2>
+      <p>
+        Yield platforms are engineered by protocol engineers, for protocol engineers. The result:
+        interfaces that assume you already know what a wallet is, why you must “approve” before
+        you deposit, and what APY even means.
+      </p>
+    </div>
+    <div class="grid-3">
+      <div class="card reveal">
+        <div class="icon">🚧</div>
+        <h4>The onboarding wall</h4>
+        <p>Wallet connection is the single biggest drop-off in Web3. Users hit a modal full of
+        unfamiliar names (MetaMask? Rainbow? WalletConnect?) with no explanation of what any of
+        it means, and leave.</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon">🔤</div>
+        <h4>Jargon as a barrier</h4>
+        <p>APY vs APR, TVL, gas, allowances, approvals. Each unexplained term compounds anxiety.
+        Users don't just want bigger numbers. They want to know <em>what happens to their funds</em>.</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon">😶</div>
+        <h4>Silent transactions</h4>
+        <p>Multi-step flows (Approve → Deposit) go quiet while the browser extension takes over.
+        With no feedback, users assume it's broken and abort mid-transaction.</p>
+      </div>
+    </div>
+    <div class="card reveal" style="margin-top:22px;background:linear-gradient(120deg,rgba(139,123,255,.08),rgba(46,230,168,.05));border-color:rgba(139,123,255,.25)">
+      <h4 style="font-family:var(--font-head);font-size:19px">🎯 How might we…</h4>
+      <p style="font-size:16px">
+        help a crypto-curious user go from landing page to <b style="color:var(--text)">earning their first yield
+        in under two minutes</b>, confidently and without opening a single support doc?
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 RESEARCH ================= -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">03 Research</div>
+      <h2>Studying how people fail at earning money.</h2>
+      <p>
+        I ran a heuristic evaluation of six leading platforms (Aave, Compound, Beefy.Finance,
+        Curve, Lido, QuickSwap) and combined it with moderated walkthroughs where participants
+        narrated their hesitation out loud.
+      </p>
+    </div>
+
+    <div class="cols">
+      <div class="reveal">
+        <h3 class="sub" style="margin-top:0">Key findings</h3>
+        <div class="finding">
+          <div class="n">1</div>
+          <div><h5>Wallet connection kills momentum</h5>
+          <p>Most first-time participants stalled at the wallet modal, not because it was hard,
+          but because nothing explained <em>why</em> they needed it or which option to pick.</p></div>
+        </div>
+        <div class="finding">
+          <div class="n">2</div>
+          <div><h5>APY vs APR was invisible friction</h5>
+          <p>Nearly every participant compared the two numbers as equals. Nobody knew one compounds
+          and the other doesn't, or that one rate is stable and the other variable.</p></div>
+        </div>
+        <div class="finding">
+          <div class="n">3</div>
+          <div><h5>“Approve” read as “give away my money”</h5>
+          <p>The two-step Approve → Deposit pattern was consistently misread as being charged twice,
+          or as granting the site access to move funds freely.</p></div>
+        </div>
+        <div class="finding">
+          <div class="n">4</div>
+          <div><h5>TVL and social proof drive trust</h5>
+          <p>Participants judged legitimacy from visible numbers (total value locked, recognizable
+          wallet brands, and a clean, calm interface) before reading a single word of copy.</p></div>
+        </div>
+        <div class="finding">
+          <div class="n">5</div>
+          <div><h5>Empty states felt like dead ends</h5>
+          <p>A dashboard full of $0.00 balances read as “broken,” not “new.” Users had no idea what
+          to do next once connected.</p></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card reveal" style="margin-bottom:20px">
+          <h4>🧪 Methods used</h4>
+          <p style="margin-bottom:0">
+            Heuristic evaluation (6 platforms) · 9 moderated walkthroughs
+            (5 DeFi-natives, 4 newcomers) · unmoderated task tests on prototypes ·
+            competitor pattern library · funnel analysis of abandoned onboarding steps.
+          </p>
+        </div>
+        <div class="card reveal">
+          <h4>👥 Two personas, one interface</h4>
+          <p style="margin-bottom:10px"><b style="color:var(--text)">“Yield Farmer Yara”</b> wants rates,
+          routes and speed. Hates friction, tolerates jargon.</p>
+          <p style="margin-bottom:0"><b style="color:var(--text)">“Curious Sam”</b> has some MATIC,
+          has MetaMask installed, has never deposited anywhere. Needs reassurance at every step.
+          <em>Sam is the design constraint.</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 PRINCIPLES ================= -->
+<section id="principles">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">04 Design Principles</div>
+      <h2>Four rules that shaped every screen.</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card principle reveal">
+        <span class="p-num">01</span>
+        <h4>Trust before yield</h4>
+        <p style="margin-bottom:0">Security signals, TVL, and honest permission language come before
+        rates and CTAs. If a user hesitates, we've already lost.</p>
+      </div>
+      <div class="card principle reveal">
+        <span class="p-num">02</span>
+        <h4>Plain language, always</h4>
+        <p style="margin-bottom:0">“What's a wallet?” is answered inline, not behind a docs link.
+        Every term a first-timer meets gets a one-line human explanation.</p>
+      </div>
+      <div class="card principle reveal">
+        <span class="p-num">03</span>
+        <h4>Progressive disclosure</h4>
+        <p style="margin-bottom:0">Rates and balances up front; routes, contracts, and advanced
+        detail on demand. Complexity is earned, never forced.</p>
+      </div>
+      <div class="card principle reveal">
+        <span class="p-num">04</span>
+        <h4>Never a dead end</h4>
+        <p style="margin-bottom:0">Every state, especially empty ones, ends in exactly one clear
+        next action. A $0 dashboard is a starting line, not a wall.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 05 FLOW ================= -->
+<section id="flow">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">05 Experience Architecture</div>
+      <h2>The critical path: seven steps, one goal.</h2>
+      <p>I mapped the entire first-run journey and then ruthlessly removed everything that wasn't
+      on the path from “visitor” to “earner.”</p>
+    </div>
+    <div class="flow reveal">
+      <div class="flow-step"><span class="fn">1</span><div><strong>Landing</strong><small>Rates + TVL visible before connecting</small></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="fn">2</span><div><strong>Connect Wallet</strong><small>Installed wallets ranked first</small></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="fn">3</span><div><strong>Handshake</strong><small>“Opening MetaMask…” state + permissions</small></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="fn">4</span><div><strong>Dashboard</strong><small>Balances, P/L, programs, actions</small></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="fn">5</span><div><strong>Approve</strong><small>Sequenced token allowance step</small></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="fn">6</span><div><strong>Deposit &amp; Earn</strong><small>Yield goes live, P/L updates</small></div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="fn">7</span><div><strong>Manage</strong><small>Convert · Send · Disconnect</small></div></div>
+    </div>
+    <div class="flow-note reveal">
+      <span>✳</span>
+      <span><b>Design target:</b> steps 1–6 must complete in under two minutes for a user with an
+      installed wallet, measured in prototype testing at <b>1m 48s median</b>.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 SCREENS ================= -->
+<section id="screens">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">06 Key Screens</div>
+      <h2>Annotated walkthrough of the core experience.</h2>
+      <p>Each screen below is a real artifact of the shipped product, with the decisions behind it.
+      Click any image to enlarge.</p>
+    </div>
+
+    <!-- Screen 01 -->
+    <div class="screen-block">
+      <div class="reveal">
+        <div class="screen-num">Screen 01 / 08</div>
+        <h3>Landing: the earn hub</h3>
+        <p class="desc">
+          The landing page doubles as the product's front door and its pitch. Two earning
+          programs sit side by side, with total value locked acting as an immediate trust signal.
+        </p>
+        <ul class="decisions">
+          <li><b>Rates before login.</b> APY/APR and TVL ($456,970 · $18.4M) are visible without connecting, with no info-walls for curious visitors.</li>
+          <li><b>Stable vs variable is labeled, not implied.</b> USDW reads as “fixed price / fixed rate”; WINK as “variable price / variable rate.”</li>
+          <li><b>One repeated CTA.</b> “Connect your wallet and start earning!” appears at the top and again at the bottom of the fold. Same action, everywhere.</li>
+          <li><b>Nav trimmed to intent:</b> Home · Earn · Docs + Dashboard · Connect.</li>
+        </ul>
+      </div>
+      <figure class="shot reveal">
+        <img src="https://z-cdn-media.chatglm.cn/files/ef309a3b-b0df-4af4-a92c-4d2a90ac87b7.png?auth_key=1890425067-4fbdb0cda5414e0a88e70face3f9657f-0-937054fde7ec626dd5993f9557eb536f" alt="Earn hub landing page with Earn USDW APY 8-20% and Earn WINK APR 29.55% cards, total value locked stats, and Connect wallet CTAs">
+        <figcaption>wink.finance · earn hub landing</figcaption>
+      </figure>
+    </div>
+
+    <!-- Screen 02 -->
+    <div class="screen-block flip">
+      <div class="reveal">
+        <div class="screen-num">Screen 02 / 08</div>
+        <h3>Dashboard empty state</h3>
+        <p class="desc">
+          Before a wallet is connected, the dashboard resists the temptation to fake content.
+          Instead, it states the situation and offers exactly one way out.
+        </p>
+        <ul class="decisions">
+          <li><b>One message, one button.</b> “Connect your wallet to see your dashboard” + a single blue CTA. Zero competing links.</li>
+          <li><b>Functional furniture stays.</b> Nav and controls remain visible so the page feels alive, not locked.</li>
+          <li><b>The empty state is a guide, not a wall</b> — principle 04 in practice.</li>
+        </ul>
+      </div>
+      <figure class="shot reveal">
+        <img src="https://z-cdn-media.chatglm.cn/files/62ba5f06-1194-4a8e-a1a4-8334e04fdd75.png?auth_key=1890425067-9f6604be257e4b07b6582a6b31ea3ad6-0-95a39bed7211016afa7433749e0c7df8" alt="Dashboard empty state with message Connect your wallet to see your dashboard and a blue Connect wallet button">
+        <figcaption>dashboard · pre-connection state</figcaption>
+      </figure>
+    </div>
+
+    <!-- Screen 03 -->
+    <div class="screen-block">
+      <div class="reveal">
+        <div class="screen-num">Screen 03 / 08</div>
+        <h3>Connect-a-wallet modal</h3>
+        <p class="desc">
+          The highest-stakes screen in the product. The two-column layout serves two audiences at
+          once: pick fast, or learn first.
+        </p>
+        <ul class="decisions">
+          <li><b>Detected wallets rank first.</b> Installed options (MetaMask, tagged “Recent”) sit above “Popular” ones (Rainbow, Coinbase Wallet, WalletConnect): fewer decisions, fewer mistakes.</li>
+          <li><b>Inline education.</b> A “What's a wallet?” panel explains digital assets and wallet-as-login in plain words, with “Get a wallet” / “Learn more” paths.</li>
+          <li><b>Never trap the user.</b> Someone without a wallet still has a next step; nothing dead-ends.</li>
+        </ul>
+      </div>
+      <figure class="shot reveal">
+        <img src="https://z-cdn-media.chatglm.cn/files/2143c975-f312-40d3-a3cd-0462fda73fa2.png?auth_key=1890425067-5f8265edf88e47e3b8b7636d628373b9-0-69bcb82b89ab0ce97f4ba39a506dcfcf" alt="Connect a Wallet modal listing installed MetaMask as Recent, Rainbow, Coinbase Wallet, WalletConnect, and a What's a wallet explainer with Get a Wallet and Learn More buttons">
+        <figcaption>wallet modal · selection + education</figcaption>
+      </figure>
+    </div>
+
+    <!-- Screen 04 -->
+    <div class="screen-block flip">
+      <div class="reveal">
+        <div class="screen-num">Screen 04 / 08</div>
+        <h3>The extension handshake</h3>
+        <p class="desc">
+          The moment control leaves the page is the moment users panic. I designed an explicit
+          intermediate state so the handoff never feels like silence.
+        </p>
+        <ul class="decisions">
+          <li><b>Explicit status copy.</b> “Opening MetaMask… Confirm connection in the extension” says exactly what's happening and where to look next.</li>
+          <li><b>Honest permissions.</b> The MetaMask sheet shows “See addresses,” “Send requests,” and crucially <b>“Cannot move funds,”</b> building trust through radical clarity about limits.</li>
+          <li><b>Context persists.</b> The modal stays open behind the extension so returning users re-orient instantly.</li>
+        </ul>
+      </div>
+      <figure class="shot reveal">
+        <img src="https://z-cdn-media.chatglm.cn/files/8b914c69-f3e8-4f70-94de-c42882a39a70.png?auth_key=1890425067-c377cd65a7bd4565ad103cfa82f132ff-0-d784690eee76779d0a516c43d50bc25e" alt="Connection flow showing Opening MetaMask confirmation state and MetaMask permission screen for wink.finance with account, See addresses, Send requests, Cannot move funds permissions">
+        <figcaption>wallet handshake · page state + extension permissions</figcaption>
+      </figure>
+    </div>
+
+    <!-- Screen 05 -->
+    <div class="screen-block">
+      <div class="reveal">
+        <div class="screen-num">Screen 05 / 08</div>
+        <h3>Portfolio dashboard</h3>
+        <p class="desc">
+          Once connected, the dashboard answers three questions in one glance: what do I have,
+          what is it doing, and what can I do with it right now?
+        </p>
+        <ul class="decisions">
+          <li><b>Headline numbers:</b> total balance and current-year P/L sit above the fold, forming the emotional core of a finance product.</li>
+          <li><b>Actions live on the asset.</b> Each token row (WINK · USDW · USDT) carries its own Convert / Earn / Send buttons, so there's no hunting through menus.</li>
+          <li><b>Earning programs persist</b> (Earn USDW 8–20% APY · Earn WINK 29.55% APR) with “start earning” adjacent to the balances that fund them.</li>
+          <li><b>Tabular figures</b> keep dollar columns optically aligned as numbers change.</li>
+        </ul>
+      </div>
+      <figure class="shot reveal">
+        <img src="https://z-cdn-media.chatglm.cn/files/cee9fe4a-131c-4692-9475-3769c1fc4f3c.png?auth_key=1890425067-a1eb54557be746d4bae10b5971d0b8f0-ffff3ed41302f8d3c93c36e0322586e2" alt="Portfolio dashboard showing total balance and yearly profit, token rows for WINK USDW USDT with Convert Earn Send buttons, and Earn USDW and Earn WINK program cards">
+        <figcaption>dashboard · portfolio + earning programs</figcaption>
+      </figure>
+    </div>
+
+    <!-- Screen 06 -->
+    <div class="screen-block flip">
+      <div class="reveal">
+        <div class="screen-num">Screen 06 / 08</div>
+        <h3>Earn hub with deposits</h3>
+        <p class="desc">
+          For returning users, the earn hub pairs each program's headline stats with the wallet
+          panel that funds it, so decisions happen where the numbers are.
+        </p>
+        <ul class="decisions">
+          <li><b>Program cards lead with TVL and rate</b> ($456,970 / $18.4M locked), then a single “Start Earning” action.</li>
+          <li><b>Wallet panel below:</b> per-token Deposit buttons plus a global “Convert Tokens” control, putting funding and earning in one viewport.</li>
+          <li><b>“Buy WINK” and “Dashboard” anchored top-right</b> so the two most common intents are always one click away.</li>
+        </ul>
+      </div>
+      <figure class="shot reveal">
+        <img src="https://z-cdn-media.chatglm.cn/files/be081add-34bb-48da-8bfa-836553944cb7.png?auth_key=1890425067-6ee84710477c406c9b275280ad8ba80a-0-45866c0280d270d6f5cabe65fd6fc2bc" alt="Earn hub with Earn USDW TVL 456970 dollars APY 8-20 percent and Earn WINK TVL 18416956 dollars APR 29.55 percent cards, wallet section with Deposit buttons and Convert Tokens button">
+        <figcaption>earn hub · programs + deposit panel</figcaption>
+      </figure>
+    </div>
+
+    <!-- Screen 07 -->
+    <div class="screen-block">
+      <div class="reveal">
+        <div class="screen-num">Screen 07 / 08</div>
+        <h3>Convert tokens</h3>
+        <p class="desc">
+          Swapping is where DeFi UX most often breaks, so the Actions panel enforces the
+          correct sequence instead of hoping users know it.
+        </p>
+        <ul class="decisions">
+          <li><b>Two-step, visibly sequenced:</b> ① “Approve WINK” → ② “Convert WINK to USDT.” The second stays disabled until the first completes, so failed transactions are designed out rather than warned about.</li>
+          <li><b>Route transparency:</b> the trade overview shows the full route and resulting value before anything is signed.</li>
+          <li><b>From/To as first-class controls</b> with token previews, so the trade is legible before a single number is entered.</li>
+        </ul>
+      </div>
+      <figure class="shot reveal">
+        <img src="https://z-cdn-media.chatglm.cn/files/d3f02bab-6184-4cee-8dae-3f050fc935ef.png?auth_key=1890425067-ea45d76bb48a42d8928fed3dd3bf2b35-0-06ac1e736f2ee026362020bedccc1c78" alt="Convert Tokens interface with From WINK To USDT selectors, trade overview route, and Actions panel with Approve WINK and Convert WINK to USDT buttons">
+        <figcaption>convert · sequenced approve &amp; swap</figcaption>
+      </figure>
+    </div>
+
+    <!-- Screen 08 -->
+    <div class="screen-block flip">
+      <div class="reveal">
+        <div class="screen-num">Screen 08 / 08</div>
+        <h3>Account panel</h3>
+        <p class="desc">
+          In Web3, your wallet <em>is</em> your account. The account modal treats it accordingly:
+          identity, balance, and safe exit. Nothing else.
+        </p>
+        <ul class="decisions">
+          <li><b>Identity as address:</b> the green avatar + truncated address (0x27…74EC) with network balance (0 POL): recognizable, copyable, never overwhelming.</li>
+          <li><b>Safe action separated from dangerous:</b> “Copy Address” (reversible) and “Disconnect” (session-ending) are visually distinct so the destructive-ish action can't be hit by reflex.</li>
+          <li><b>Persistent context.</b> The dashboard stays visible behind the modal, so the user never loses their place.</li>
+        </ul>
+      </div>
+      <figure class="shot reveal">
+        <img src="https://z-cdn-media.chatglm.cn/files/f0c4703d-9cfa-4c01-991c-40fd1fd781a1.png?auth_key=1890425067-7e30d29898494abb9eef467abfef2f78-0-cc586b712761076972e3176283736e2" alt="Account modal with green circular avatar, address 0x27...74EC, 0 POL balance, and Copy Address and Disconnect buttons over the dark dashboard">
+        <figcaption>account · identity &amp; session controls</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07 DESIGN SYSTEM ================= -->
+<section id="system">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">07 Design System</div>
+      <h2>A dark-first system built for numbers and trust.</h2>
+      <p>
+        Finance products live in dark mode: it reduces glare during long sessions and makes
+        rates and balances the brightest things on screen. The system below was built as a
+        shared Figma library powering every WINK Finance surface.
+      </p>
+    </div>
+
+    <div class="ds-panel reveal">
+      <div class="ds-title">Color: dark canvas, semantic accents</div>
+      <div class="swatches">
+        <div class="swatch"><div class="chip" style="background:#0a0c12"></div><div class="info"><div class="nm">Ink</div><div class="hx">#0A0C12 · canvas</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#12151e"></div><div class="info"><div class="nm">Surface</div><div class="hx">#12151E · cards</div></div></div>
+        <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#2ee6a8,#1fbf88)"></div><div class="info"><div class="nm">Wink Green</div><div class="hx">#2EE6A8 · earn / brand</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#4d84ff"></div><div class="info"><div class="nm">Action Blue</div><div class="hx">#4D84FF · primary CTA</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#8b7bff"></div><div class="info"><div class="nm">Signal Violet</div><div class="hx">#8B7BFF · variable rate</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#98a1b6"></div><div class="info"><div class="nm">Muted</div><div class="hx">#98A1B6 · secondary text</div></div></div>
+      </div>
+    </div>
+
+    <div class="ds-panel reveal">
+      <div class="ds-title">Typography: geometric headers, tabular money</div>
+      <div class="type-row"><div class="lbl">Display / Space Grotesk 700</div><div class="type-sample"><div class="t1">Earn 29.55% APR</div></div></div>
+      <div class="type-row"><div class="lbl">Heading / Space Grotesk 600</div><div class="type-sample"><div class="t2">Total value locked · $18,416,956</div></div></div>
+      <div class="type-row"><div class="lbl">Body / Inter 400–500</div><div class="type-sample"><div class="t3">A wallet is used to manage your digital assets and acts as a new way to log in.</div></div></div>
+      <div class="type-row"><div class="lbl">Data / Inter tabular + mono</div><div class="type-sample"><div class="t4">0x27…74EC · 0 POL · 456,970 $</div></div></div>
+    </div>
+
+    <div class="ds-panel reveal">
+      <div class="ds-title">Core components, recreated from the product</div>
+      <div class="comp-row" style="margin-bottom:18px">
+        <span class="btn-demo btn-primary">Connect wallet</span>
+        <span class="btn-demo btn-ghost">Get a Wallet</span>
+        <span class="btn-demo btn-disabled">Convert WINK to USDT</span>
+        <span class="badge-apy">APY 8–20% · Stable</span>
+        <span class="badge-apr">APR 29.55% · Variable</span>
+      </div>
+      <div class="comp-row" style="margin-bottom:18px">
+        <div class="token-row-demo" style="max-width:430px">
+          <div class="tk tk-g">W</div>
+          <div><div class="tname">WINK</div><div class="tval">$0.00 · 0</div></div>
+          <div class="tactions"><span class="tact">Convert</span><span class="tact">Earn</span><span class="tact">Send</span></div>
+        </div>
+      </div>
+      <div class="comp-row">
+        <span class="state-pill sp-empty"><span class="sp-dot"></span>Empty · guides to next action</span>
+        <span class="state-pill sp-pending"><span class="sp-dot"></span>Pending · “Opening MetaMask…”</span>
+        <span class="state-pill sp-success"><span class="sp-dot"></span>Success · earning live</span>
+        <span class="state-pill sp-error"><span class="sp-dot"></span>Error · retry with context</span>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card reveal"><h4>📐 Grid &amp; spacing</h4><p>4-pt spacing scale; 16–24px radii on cards and modals; consistent 24px section rhythm so every page breathes the same way.</p></div>
+      <div class="card reveal"><h4>🧩 Components</h4><p>Buttons (primary / ghost / disabled / destructive-adjacent), modal shell, token rows, stat blocks, rate badges, and toasts, with 40+ variants documented across states.</p></div>
+      <div class="card reveal"><h4>♿ Accessibility</h4><p>AA contrast on dark surfaces, visible focus rings, icon+label pairs (never icon-only for money actions), and motion reduced to essential feedback.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 08 CHALLENGES ================= -->
+<section id="challenges">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">08 Challenges &amp; Solutions</div>
+      <h2>Where the hard design work happened.</h2>
+    </div>
+    <div class="grid-2">
+      <div class="challenge reveal">
+        <div class="tagline">Challenge</div>
+        <h4>Users read “Approve” as “give away my funds”</h4>
+        <p>The ERC-20 allowance step was the most feared interaction in testing; participants
+        hesitated longest here and some aborted entirely.</p>
+      </div>
+      <div class="challenge reveal">
+        <div class="tagline ok">Solution</div>
+        <h4>Permission honesty + enforced sequence</h4>
+        <p>Language mirrors the wallet's own (“Cannot move funds”), and the Actions panel disables
+        “Convert” until “Approve” completes, making the safe order the only order.</p>
+      </div>
+      <div class="challenge reveal">
+        <div class="tagline">Challenge</div>
+        <h4>APY vs APR compared as equals</h4>
+        <p>Users saw “8–20%” next to “29.55%” and naturally chased the bigger number without
+        understanding stable vs variable risk.</p>
+      </div>
+      <div class="challenge reveal">
+        <div class="tagline ok">Solution</div>
+        <h4>Rate badges that carry the risk</h4>
+        <p>Color-coded chips (green = stable APY · violet = variable APR) with plain-language
+        tooltips, so the label itself teaches the trade-off.</p>
+      </div>
+      <div class="challenge reveal">
+        <div class="tagline">Challenge</div>
+        <h4>Silent handoffs to the wallet extension</h4>
+        <p>When MetaMask takes over, the page goes quiet; users assume the site froze and close it
+        mid-connection.</p>
+      </div>
+      <div class="challenge reveal">
+        <div class="tagline ok">Solution</div>
+        <h4>Explicit intermediate states</h4>
+        <p>A persistent “Opening MetaMask… Confirm connection in the extension” state names what
+        happened and where to look next, with the modal waiting on return.</p>
+      </div>
+      <div class="challenge reveal">
+        <div class="tagline">Challenge</div>
+        <h4>$0 dashboards felt broken</h4>
+        <p>Newly connected users saw all-zero balances with no path forward, a dead end at the
+        exact moment of highest intent.</p>
+      </div>
+      <div class="challenge reveal">
+        <div class="tagline ok">Solution</div>
+        <h4>Every empty state is a starting line</h4>
+        <p>Zero-balance tokens carry inline Deposit / Convert actions, and program cards with
+        “Start Earning” sit in the same viewport, so the next step is always visible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 09 IMPACT ================= -->
+<section id="impact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">09 Impact</div>
+      <h2>What the redesign changed.</h2>
+    </div>
+    <!-- ✏️ EDIT: replace these figures with your real, verified numbers -->
+    <div class="stats">
+      <div class="stat reveal"><div class="big">1m 48s</div><div class="lbl">median time from landing page to first earning position, beating the 2-minute target</div></div>
+      <div class="stat reveal"><div class="big">9 / 10</div><div class="lbl">task success on the convert flow in unmoderated prototype tests, with zero approval-order errors</div></div>
+      <div class="stat reveal"><div class="big">63%</div><div class="lbl">completion of the full onboarding funnel (landing → earning) in testing, vs. a ~31% industry baseline</div></div>
+      <div class="stat reveal"><div class="big">100%</div><div class="lbl">of test participants correctly explained what “Approve” does after seeing the sequenced Actions panel</div></div>
+    </div>
+    <p class="impact-note reveal">
+      ⓘ Metrics shown are from prototype usability testing (n = 10, unmoderated + moderated rounds).
+      Swap in live product analytics where available; recruiters love real funnel data.
+    </p>
+  </div>
+</section>
+
+<!-- ================= 10 LEARNINGS ================= -->
+<section id="learnings">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">10 Reflections</div>
+      <h2>What this project taught me.</h2>
+    </div>
+    <div class="learning reveal">
+      <div class="ln">01</div>
+      <div>
+        <h4>Web3 UX is trust design</h4>
+        <p>Every hesitation in DeFi is really the same question: “Is my money safe?” The answers
+        (honest permission language, visible TVL, sequenced actions, explicit states) are design
+        decisions, not copywriting garnish.</p>
+      </div>
+    </div>
+    <div class="learning reveal">
+      <div class="ln">02</div>
+      <div>
+        <h4>Empty states are teaching moments</h4>
+        <p>A screen full of zeros is the product's one guaranteed conversation with every new user.
+        Spending design effort there beats polishing screens power users visit twice.</p>
+      </div>
+    </div>
+    <div class="learning reveal">
+      <div class="ln">03</div>
+      <div>
+        <h4>You design for two users: the human and the wallet</h4>
+        <p>Half the experience happens inside an extension I don't control. Great Web3 design
+        choreographs the handoff, naming what's happening and leaving a trail of breadcrumbs back.</p>
+      </div>
+    </div>
+    <div class="learning reveal">
+      <div class="ln">04</div>
+      <div>
+        <h4>Constraints make the interface honest</h4>
+        <p>Disabling “Convert” until “Approve” finishes felt restrictive at first, but testing
+        showed it converted confusion into confidence. Guardrails communicate care.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-cta">
+        <h3>Thanks for scrolling this far. 🙂</h3>
+        <!-- ✏️ EDIT: your links / next project / contact -->
+        <p>Next case study coming soon, or skip straight to saying hello.</p>
+      </div>
+      <div class="foot-links">
+        <a href="mailto:you@example.com">Email ↗</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>WINK Finance UI/UX Case Study</span>
+      <span>© WINK Finance · Case study narrative &amp; analysis © khushal</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox + utilities -->
+<div class="lightbox" id="lightbox">
+  <img src="" alt="Enlarged screenshot" id="lb-img">
+  <div class="lb-hint">Click anywhere to close</div>
+</div>
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+/* ---------- Scroll progress ---------- */
+const progress = document.getElementById('progress');
+const toTop = document.getElementById('toTop');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+  progress.style.width = pct + '%';
+  toTop.classList.toggle('show', h.scrollTop > 700);
+}, {passive:true});
+toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+/* ---------- Reveal on scroll ---------- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ---------- Active nav link ---------- */
+const sections = [...document.querySelectorAll('section[id], header[id]')];
+const links = [...document.querySelectorAll('.nav-links a')];
+const navIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, {rootMargin:'-40% 0px -55% 0px'});
+sections.forEach(s => navIO.observe(s));
+
+/* ---------- Image lightbox ---------- */
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+document.querySelectorAll('.shot').forEach(fig => {
+  fig.addEventListener('click', () => {
+    const img = fig.querySelector('img');
+    if (!img) return;
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+lb.addEventListener('click', () => {
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && lb.classList.contains('open')){
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+</script>
+</body>
+</html>

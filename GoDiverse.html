@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GoDiverse Unified Database | UI/UX Case Study</title>
+<meta name="description" content="Case study: designing GoDiverse Unified Database, the supplier diversity portal that connects UK corporates and tier 1 suppliers with certified diverse businesses in minutes.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7A54'/%3E%3Ctext x='32' y='43' font-family='Arial' font-size='34' font-weight='700' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF8F2; --card:#FFFFFF; --ink:#10201A; --soft:#54645C; --faint:#8A968F;
+  --navy:#14263A; --green:#0E7A54; --green-deep:#0A5C40; --mint:#E7F4EC;
+  --line:#E5E0D3; --chip:#F2EFE7; --tree:#DCD5C4;
+  --teal:#2FA98C; --amber:#F2B33D; --coral:#F26A5E; --violet:#8B7BF0; --sky:#5B9BF0; --moss:#7BA05B;
+  --radius:16px; --shadow:0 24px 60px -28px rgba(16,32,26,.28);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+::selection{background:#BEE3CE}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--green-deep)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+section{padding:96px 0;scroll-margin-top:80px}
+.sec-head{max-width:780px;margin-bottom:54px}
+.kicker{display:flex;align-items:center;gap:10px;font:600 12.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin-bottom:18px}
+.kicker b{display:inline-grid;place-items:center;min-width:30px;height:24px;padding:0 8px;border-radius:8px;background:var(--navy);color:#fff;letter-spacing:.05em}
+h2{font:600 clamp(30px,4vw,42px)/1.15 'Space Grotesk',sans-serif;letter-spacing:-.01em;margin-bottom:18px}
+h3{font:600 24px/1.25 'Space Grotesk',sans-serif;letter-spacing:-.01em}
+.lead{font-size:18px;color:var(--soft)}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;z-index:200;background:#fff;padding:10px 16px;border-radius:8px;text-decoration:none}
+
+/* Nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;background:rgba(250,248,242,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:13px 28px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink)}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:var(--green);color:#fff;display:grid;place-items:center;font:700 15px 'Space Grotesk',sans-serif}
+.logo-text{font:600 15.5px 'Space Grotesk',sans-serif}
+.logo-text em{font-style:normal;color:var(--faint);font-weight:500}
+.nav-links{display:flex;gap:24px;font:500 13.5px 'Inter',sans-serif}
+.nav-links a{color:var(--soft);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--green-deep)}
+
+/* Hero */
+.hero{padding:172px 0 44px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-220px;right:-160px;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(14,122,84,.14),transparent 65%);pointer-events:none}
+.hero::after{content:"";position:absolute;top:140px;left:-220px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(242,179,61,.12),transparent 65%);pointer-events:none}
+h1{font:700 clamp(44px,7vw,86px)/1.02 'Space Grotesk',sans-serif;letter-spacing:-.03em;margin:0 0 22px}
+h1 span{color:var(--green)}
+.hero-sub{max-width:700px;font-size:19px;color:var(--soft);margin-bottom:26px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:64px}
+.hero-meta span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:500}
+
+/* Browser frame */
+.shot{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.shot-top{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#EFEAE0;border-bottom:1px solid var(--line)}
+.dot{width:10px;height:10px;border-radius:50%}
+.d1{background:#F26A5E}.d2{background:#F2B33D}.d3{background:#57BE7A}
+.shot-url{margin-left:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 14px;font:500 11.5px 'Space Grotesk',sans-serif;color:var(--faint)}
+.shot-cap{display:flex;justify-content:space-between;gap:16px;font-size:13px;color:var(--faint);margin-top:12px}
+.shot-fallback{min-height:260px;display:grid;place-items:center;background:repeating-linear-gradient(45deg,#F7F4EC,#F7F4EC 12px,#F1EDE2 12px,#F1EDE2 24px);color:var(--faint);font:500 13px 'Space Grotesk',sans-serif;text-align:center;padding:24px}
+
+/* Overview facts */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.fact span{display:block;font:600 11.5px 'Space Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);margin-bottom:10px}
+.fact p{font-size:15px;color:var(--soft)}
+
+/* Challenge */
+.statement{font:600 clamp(24px,3vw,34px)/1.32 'Space Grotesk',sans-serif;max-width:900px;margin-bottom:34px}
+.statement em{font-style:normal;color:var(--green)}
+.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pain{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px}
+.pain span{font:700 13px 'Space Grotesk',sans-serif;color:#C8C2B2;display:block;margin-bottom:12px}
+.pain h4{font:600 17px 'Space Grotesk',sans-serif;margin-bottom:8px}
+.pain p{font-size:14.5px;color:var(--soft)}
+.note{margin-top:20px;background:var(--navy);color:#DFE9E3;border-radius:14px;padding:22px 28px;font-size:15.5px}
+.note strong{color:#fff}
+
+/* Research */
+.methods{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+.method{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.method b{display:block;font:600 15.5px 'Space Grotesk',sans-serif;margin-bottom:8px}
+.method p{font-size:14px;color:var(--soft)}
+.insights{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:70px}
+.insight{background:var(--mint);border:1px solid #CFE8DA;border-radius:14px;padding:22px}
+.insight .big{display:block;font:700 34px 'Space Grotesk',sans-serif;color:var(--green-deep);margin-bottom:8px;letter-spacing:-.02em}
+.insight p{font-size:14px;color:#2C4A3C}
+.personas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.persona{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:18px}
+.p-top{display:flex;gap:14px;align-items:center}
+.avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font:600 16px 'Space Grotesk',sans-serif;color:#fff;flex:none}
+.p-top h4{font:600 16.5px 'Space Grotesk',sans-serif}
+.p-role{font-size:12.5px;color:var(--faint)}
+.p-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.p-cols h5{font:600 11px 'Space Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);margin-bottom:8px}
+.p-cols li{font-size:13.5px;color:var(--soft);margin:0 0 6px 15px}
+.persona blockquote{font-size:13.5px;font-style:italic;color:var(--soft);border-top:1px dashed var(--line);padding-top:14px}
+
+/* Strategy */
+.hmw{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:60px}
+.hmw-card{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 14px 14px 0;padding:22px;font-size:15.5px}
+.principles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:70px}
+.principle{background:var(--navy);color:#E8EEEA;border-radius:16px;padding:26px}
+.principle span{font:700 26px 'Space Grotesk',sans-serif;color:#57BE7A;display:block;margin-bottom:10px}
+.principle h4{font:600 16.5px 'Space Grotesk',sans-serif;color:#fff;margin-bottom:6px}
+.principle p{font-size:13.5px;color:#AFC0B7}
+.sub-h{font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:0 0 18px}
+
+/* IA tree */
+.ia-root{width:max-content;margin:0 auto;background:var(--navy);color:#fff;padding:10px 26px;border-radius:999px;font:600 15px 'Space Grotesk',sans-serif;display:flex;align-items:center;gap:12px}
+.ia-root small{font:500 11px 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8FA6BC}
+.ia-connect{position:relative;height:30px;margin-top:2px}
+.ia-connect::before{content:"";position:absolute;top:0;left:25%;right:25%;height:2px;background:var(--tree)}
+.ia-connect::after{content:"";position:absolute;top:-8px;left:calc(50% - 1px);width:2px;height:8px;background:var(--tree)}
+.ia-connect i{position:absolute;top:0;width:2px;height:30px;background:var(--tree)}
+.ia-connect i.l{left:calc(25% - 1px)}
+.ia-connect i.r{left:calc(75% - 1px)}
+.ia-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.branch{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+.branch-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.branch-node{display:inline-block;background:var(--navy);color:#fff;padding:8px 20px;border-radius:999px;font:600 14px 'Space Grotesk',sans-serif}
+.branch-sub{font-size:12.5px;color:var(--faint);margin:0}
+.tl{list-style:none;margin:6px 0 0;padding-left:24px;position:relative}
+.tl::before{content:"";position:absolute;left:0;top:-6px;width:2px;height:14px;background:var(--tree)}
+.tl>li{position:relative;padding:6px 0}
+.tl>li::before{content:"";position:absolute;left:-24px;top:-6px;width:2px;height:calc(100% + 12px);background:var(--tree)}
+.tl>li::after{content:"";position:absolute;left:-24px;top:22px;width:20px;height:2px;background:var(--tree)}
+.tl>li:last-child::before{height:28px}
+.tl>li.has-kids::before{height:calc(100% + 12px)}
+.node{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:5px 12px;font:600 13px 'Space Grotesk',sans-serif;color:var(--ink);position:relative;z-index:1}
+.node.hub{background:var(--mint);border-color:#BFDCCB;color:var(--green-deep)}
+.node.gate{background:#FCF3DF;border-color:#EAD09A;color:#8A6210}
+.node.ok{background:var(--green);border-color:var(--green);color:#fff}
+.node.no{background:#FDEBE9;border-color:#F2C4BE;color:#B44A3F}
+.node.dash{border-style:dashed;color:var(--soft);background:var(--chip)}
+.detail{margin:6px 0 2px;background:var(--chip);border:1px dashed #D8D2C2;border-radius:9px;padding:8px 12px;font-size:12px;color:var(--soft);line-height:1.6;max-width:520px}
+.detail b{display:block;font:600 10px 'Space Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:3px}
+.hop{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 0;font:500 12px 'Space Grotesk',sans-serif;color:var(--soft)}
+.hop i{font-style:normal;color:var(--green);font-weight:700}
+.hop em{font-style:normal;color:var(--faint)}
+.ia-legend{display:flex;flex-wrap:wrap;gap:12px 18px;margin-top:20px;padding-top:16px;border-top:1px dashed var(--line);font:500 12px 'Inter',sans-serif;color:var(--soft)}
+.ia-legend span{display:inline-flex;align-items:center;gap:7px}
+.lg{width:14px;height:14px;border-radius:5px;border:1px solid var(--line);background:#fff;display:inline-block}
+.lg-hub{background:var(--mint);border-color:#BFDCCB}
+.lg-gate{background:#FCF3DF;border-color:#EAD09A}
+.lg-ok{background:var(--green);border-color:var(--green)}
+.lg-no{background:#FDEBE9;border-color:#F2C4BE}
+.lg-detail{background:var(--chip);border-style:dashed;border-color:#D8D2C2}
+
+/* Trust funnel */
+.funnel{background:var(--navy);border-radius:16px;padding:28px;margin-top:26px;color:#E8EEEA}
+.funnel h4{font:600 18px 'Space Grotesk',sans-serif;color:#fff;margin-bottom:6px}
+.funnel p{font-size:13.5px;color:#AFC0B7;max-width:680px;margin-bottom:16px}
+.funnel-steps{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.funnel-steps span{background:#1D3450;border:1px solid #2C4666;border-radius:999px;padding:7px 14px;font:600 12.5px 'Space Grotesk',sans-serif;color:#DCE7E1}
+.funnel-steps span.hot{background:#3A2E14;border-color:#5C4A1E;color:#F2CE8A}
+.funnel-steps span.ok{background:#123B29;border-color:#1E5C3F;color:#7FD6A8}
+.funnel-steps span.badge{background:var(--green);border-color:var(--green);color:#fff}
+.funnel-steps i{font-style:normal;color:#57BE7A;font-weight:700;font-size:13px}
+
+/* Flow strip */
+.flow{list-style:none;display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.fstep{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px}
+.fstep span{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--navy);color:#fff;font:600 12px 'Space Grotesk',sans-serif;margin-bottom:10px}
+.fstep strong{display:block;font-size:14.5px;margin-bottom:4px}
+.fstep em{font-style:normal;font-size:13px;color:var(--soft)}
+.fstep:not(:last-child)::after{content:"";position:absolute;right:-13px;top:26px;width:9px;height:9px;border-top:2px solid var(--green);border-right:2px solid var(--green);transform:rotate(45deg)}
+
+/* Design system */
+.ds-colors{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:16px}
+.swatch{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.swatch-fill{height:86px}
+.swatch-info{padding:14px 16px}
+.swatch-info strong{font:600 14.5px 'Space Grotesk',sans-serif;display:block}
+.swatch-info span{font:500 12px 'Space Grotesk',sans-serif;color:var(--faint);display:block;margin-bottom:6px}
+.swatch-info small{font-size:12.5px;color:var(--soft);line-height:1.45;display:block}
+.viz{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:48px;flex-wrap:wrap}
+.viz b{font:600 11px 'Space Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-right:6px}
+.vdot{width:26px;height:26px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.ds-2col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.spec-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px}
+.spec-card h4{font:600 17px 'Space Grotesk',sans-serif;margin-bottom:6px}
+.spec-card>p{font-size:13.5px;color:var(--soft);margin-bottom:10px}
+.spec{padding:14px 0;border-bottom:1px dashed var(--line)}
+.spec:last-child{border:0;padding-bottom:0}
+.spec-label{font:600 10.5px 'Space Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.s1{font:600 28px 'Space Grotesk',sans-serif;letter-spacing:-.01em}
+.s2{font-weight:600;font-size:22px}
+.s3{font-size:15.5px;color:var(--soft)}
+.s4{font:500 15px 'Inter',sans-serif;font-variant-numeric:tabular-nums;color:var(--green-deep)}
+.comp-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.comp{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.comp-label{display:block;font:600 10.5px 'Space Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:600}
+.chip i{font-style:normal;opacity:.6;font-size:13px}
+.btn-demo{display:inline-block;background:var(--green);color:#fff;padding:10px 18px;border-radius:10px;font-weight:600;font-size:13.5px;text-decoration:none}
+.meter{height:10px;background:var(--chip);border-radius:999px;overflow:hidden;margin:10px 0 6px}
+.meter i{display:block;height:100%;background:var(--green);border-radius:999px}
+.meter-val{font:600 13px 'Space Grotesk',sans-serif;color:var(--green-deep)}
+.kpi-mini{background:var(--mint);border:1px solid #CFE8DA;border-radius:12px;padding:14px 16px}
+.kpi-mini small{font:600 10.5px 'Space Grotesk',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--green-deep)}
+.kpi-mini b{display:block;font:700 26px 'Space Grotesk',sans-serif;color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* Features */
+#features{background:#F3F0E8;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.feature{display:grid;grid-template-columns:1.12fr .88fr;gap:60px;align-items:center;padding:66px 0;border-top:1px dashed var(--line)}
+.feature:first-of-type{border-top:0;padding-top:10px}
+.feature.flip .f-media{order:2}
+.f-num{display:inline-flex;align-items:center;gap:9px;font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--green-deep);margin-bottom:14px}
+.f-num i{width:26px;height:26px;border-radius:8px;background:var(--green);color:#fff;display:grid;place-items:center;font-style:normal;font-size:12px}
+.feature h3{font-size:clamp(22px,2.6vw,30px);margin-bottom:14px}
+.feature p{color:var(--soft);font-size:15.5px}
+.decision{background:var(--mint);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:16px 18px;font-size:14.5px;color:#2C4A3C;margin-top:20px}
+.decision b{display:block;font:600 11px 'Space Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);margin-bottom:6px}
+.f-media .shot+.shot{margin-top:20px}
+.f-media .shot.small{width:80%;margin:20px auto 0}
+
+/* Impact */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px}
+.stat .n{font:700 clamp(34px,3.4vw,46px) 'Space Grotesk',sans-serif;color:var(--green-deep);letter-spacing:-.02em;display:block;font-variant-numeric:tabular-nums}
+.stat .u{font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:block;margin-top:2px}
+.stat p{font-size:13.5px;color:var(--soft);margin-top:10px}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:34px 0 28px}
+.quote{background:var(--navy);color:#E8EEEA;border-radius:16px;padding:30px}
+.quote p{font:500 19px/1.5 'Space Grotesk',sans-serif;margin-bottom:20px}
+.quote .who{display:flex;align-items:center;gap:12px}
+.quote .who .avatar{width:40px;height:40px;font-size:13px}
+.quote .who span{font-size:13px;color:#AFC0B7}
+.quote .who strong{display:block;color:#fff;font-size:14px}
+
+/* Reflection */
+.learnings{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px}
+.learning{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px}
+.learning span{font:700 13px 'Space Grotesk',sans-serif;color:var(--green);display:block;margin-bottom:10px}
+.learning h4{font:600 18px 'Space Grotesk',sans-serif;margin-bottom:8px}
+.learning p{font-size:14.5px;color:var(--soft)}
+.next{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px}
+.next h4{font:600 18px 'Space Grotesk',sans-serif;margin-bottom:12px}
+.next li{margin:0 0 10px 18px;font-size:15px;color:var(--soft)}
+
+/* Footer */
+.footer{background:var(--navy);color:#C9D6CF;padding:88px 0 36px;margin-top:96px}
+.footer h2{color:#fff}
+.footer .lead{color:#AFC0B7}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 56px}
+.cta{display:inline-block;padding:13px 24px;border-radius:12px;font-weight:600;font-size:14.5px;text-decoration:none}
+.cta.primary{background:var(--green);color:#fff}
+.cta.ghost{border:1px solid #33475C;color:#E8EEEA}
+.foot-note{border-top:1px solid #26394D;padding-top:24px;display:flex;justify-content:space-between;font-size:13px;color:#7E93A6;flex-wrap:wrap;gap:10px}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+@media (max-width:1020px){
+  .facts,.pains,.methods,.insights,.personas,.principles,.stats,.learnings,.ds-2col,.quotes,.hmw{grid-template-columns:repeat(2,1fr)}
+  .flow{grid-template-columns:repeat(3,1fr);row-gap:34px}
+  .fstep::after{display:none}
+  .ds-colors{grid-template-columns:repeat(3,1fr)}
+  .comp-strip{grid-template-columns:repeat(2,1fr)}
+  .ia-grid{grid-template-columns:1fr}
+  .ia-connect{display:none}
+  .feature,.feature.flip{grid-template-columns:1fr;gap:32px}
+  .feature.flip .f-media{order:0}
+}
+@media (max-width:640px){
+  .facts,.pains,.methods,.insights,.personas,.principles,.stats,.learnings,.flow,.ds-colors,.comp-strip,.p-cols{grid-template-columns:1fr}
+  section{padding:64px 0}
+  .nav-links{display:none}
+  .hero{padding:140px 0 30px}
+}
+</style>
+</head>
+<body id="top">
+<a class="skip" href="#overview">Skip to content</a>
+
+<!-- NOTE FOR YOU: every image src below now uses your exact URLs. If any CDN link expires, the frame shows a placeholder instead of breaking. Before publishing, re-host all 10 screenshots on your own hosting and swap the src values. Metrics, quotes and personas are illustrative placeholders. -->
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top"><span class="logo-mark">G</span><span class="logo-text">GoDiverse <em>Case Study</em></span></a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#challenge">Challenge</a>
+      <a href="#research">Research</a>
+      <a href="#strategy">Strategy</a>
+      <a href="#system">Design System</a>
+      <a href="#features">Features</a>
+      <a href="#impact">Impact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker reveal"><b>UI/UX Case Study</b> B2B SaaS Web Application</p>
+    <h1 class="reveal">GoDiverse<br><span>Unified Database</span></h1>
+    <p class="hero-sub reveal">A supplier diversity portal that helps large corporates and tier 1 suppliers discover, validate, and engage the UK's best women, ethnic minority, LGBTQ+, veteran, disabled owned and social enterprise businesses in minutes, not weeks.</p>
+    <div class="hero-meta reveal">
+      <span>Role: Product Designer</span>
+      <span>Timeline: 8 weeks</span>
+      <span>Platform: Responsive web app</span>
+      <span>Tools: Figma, FigJam, Maze</span>
+    </div>
+    <figure class="shot reveal">
+      <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk</span></div>
+      <img src="https://z-cdn-media.chatglm.cn/files/51653929-80f7-4fb5-ba46-b9950336e572.png?auth_key=1890686921-7c46fdfa73b4451faaad8cf89f094217-0-5d7b080cd87161ab3004aa644d053f11" alt="GoDiverse welcome screen with the question Select the option that describes you, showing Corporate and Supplier buttons beside a friendly illustration">
+    </figure>
+    <div class="shot-cap"><span>The welcome screen: one question that routes the entire product</span><span>Screen 01</span></div>
+  </div>
+</header>
+
+<main>
+<section id="overview">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker"><b>01</b> Overview</p>
+      <h2>One database, two sides of the same mission</h2>
+      <p class="lead">GoDiverse gives large corporates and tier 1 suppliers access to a comprehensive portal of diverse suppliers in the UK. The Unified Database is the product's core: one place to search thousands of qualified diverse businesses and turn them into evidence based shortlists.</p>
+    </header>
+    <div class="facts">
+      <div class="fact reveal"><span>My role</span><p>Product designer, end to end: research synthesis, information architecture, interaction design, visual UI, design system, and engineering handoff.</p></div>
+      <div class="fact reveal"><span>Timeline</span><p>8 weeks from kickoff to dev handoff, followed by 4 weeks of iteration support after launch.</p></div>
+      <div class="fact reveal"><span>Platform</span><p>Responsive web application, designed desktop first because buyers work from primary screens.</p></div>
+      <div class="fact reveal"><span>Team</span><p>1 product manager, 4 engineers, and me as the only designer.</p></div>
+      <div class="fact reveal"><span>Tools</span><p>Figma and FigJam for design and flows, Maze for moderated testing, Notion for research synthesis.</p></div>
+      <div class="fact reveal"><span>Deliverables</span><p>Research synthesis, a field level information architecture covering both buyer and supplier sides, 40+ designed screens, a component based design system, and a clickable prototype.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="challenge">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker"><b>02</b> The Challenge</p>
+      <h2>Teams believed in the mission. The tooling kept letting them down.</h2>
+    </header>
+    <p class="statement reveal">Supplier diversity teams wanted to buy from diverse businesses. But discovery ran on static lists, spreadsheet exports, and email threads, so shortlists took <em>days</em> and verification happened by hand.</p>
+    <div class="pains">
+      <div class="pain reveal"><span>Pain 01</span><h4>Fragmented data</h4><p>Supplier records lived in spreadsheets, PDF directories, and inboxes. There was no single source of truth and no consistency between teams.</p></div>
+      <div class="pain reveal"><span>Pain 02</span><h4>Slow discovery</h4><p>With no keyword search, buyers scrolled endlessly or asked around the office. Assembling a credible shortlist could take days.</p></div>
+      <div class="pain reveal"><span>Pain 03</span><h4>A trust gap</h4><p>Buyers could not tell certified diverse suppliers from self identified ones, so every shortlist needed slow manual verification.</p></div>
+      <div class="pain reveal"><span>Pain 04</span><h4>Single player in a team sport</h4><p>Procurement decisions involve buyers, managers, and compliance. Favorites were copy pasted over email, causing version chaos.</p></div>
+      <div class="pain reveal"><span>Pain 05</span><h4>Manual reporting</h4><p>Diversity spend reports for leadership were assembled by hand in slide decks, weeks after the fact.</p></div>
+      <div class="pain reveal"><span>Pain 06</span><h4>Suppliers stayed invisible</h4><p>Diverse businesses wanted to be found but generic directories buried them, and long forms pushed them to abandon their profiles.</p></div>
+    </div>
+    <p class="note reveal"><strong>The stakes:</strong> when buyers cannot find or trust diverse suppliers quickly, they default to familiar incumbents. Supplier diversity goals quietly slip, and the mission loses by default.</p>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker"><b>03</b> Research</p>
+      <h2>Listening to the people on both sides of the database</h2>
+      <p class="lead">Before a single screen, I needed to understand how buyers actually discover suppliers and why suppliers abandon directories.</p>
+    </header>
+    <div class="methods">
+      <div class="method reveal"><b>Stakeholder interviews</b><p>45 minute conversations with 9 procurement and supplier diversity leads across construction, professional services, and manufacturing.</p></div>
+      <div class="method reveal"><b>Supplier survey</b><p>14 diverse businesses told us how they try to get discovered and exactly where they drop off.</p></div>
+      <div class="method reveal"><b>Competitive teardown</b><p>4 supplier diversity platforms reviewed for search, validation, and reporting patterns worth stealing or avoiding.</p></div>
+      <div class="method reveal"><b>Diary study</b><p>5 buyers logged their real discovery moments for one week, warts and all.</p></div>
+    </div>
+    <div class="insights">
+      <div class="insight reveal"><span class="big">78%</span><p>of interviewed buyers named certification verification as their number one friction.</p></div>
+      <div class="insight reveal"><span class="big">6.5 hrs</span><p>lost per week reconciling supplier lists across tools, on average.</p></div>
+      <div class="insight reveal"><span class="big">8 of 9</span><p>buyers reached for location first, before any other filter, when narrowing options.</p></div>
+      <div class="insight reveal"><span class="big">10 fields</span><p>was the hard ceiling. Suppliers abandoned profile forms longer than that.</p></div>
+    </div>
+    <div class="personas">
+      <article class="persona reveal">
+        <div class="p-top"><span class="avatar" style="background:#0E7A54">PS</span><div><h4>Priya Sharma, 38</h4><span class="p-role">Supplier Diversity Lead, tier 1 construction supplier</span></div></div>
+        <div class="p-cols">
+          <div><h5>Goals</h5><ul><li>Hit annual diverse spend targets</li><li>Build credible shortlists fast</li><li>Export clean data for reporting</li></ul></div>
+          <div><h5>Frustrations</h5><ul><li>Stale spreadsheets</li><li>Unverifiable certification status</li><li>Slow internal sign offs</li></ul></div>
+        </div>
+        <blockquote>"If I can not verify a supplier's certification in the tool, I verify it by hand. That is where my week goes."</blockquote>
+      </article>
+      <article class="persona reveal">
+        <div class="p-top"><span class="avatar" style="background:#8B7BF0">MO</span><div><h4>Marcus Okafor, 46</h4><span class="p-role">Founder, Black owned professional services firm</span></div></div>
+        <div class="p-cols">
+          <div><h5>Goals</h5><ul><li>Get discovered by corporate buyers</li><li>Present certifications clearly</li><li>See who viewed his profile</li></ul></div>
+          <div><h5>Frustrations</h5><ul><li>Buried in generic directories</li><li>Endless forms with no payoff</li><li>Zero feedback on visibility</li></ul></div>
+        </div>
+        <blockquote>"I do not need another listing. I need to be found by the right people."</blockquote>
+      </article>
+      <article class="persona reveal">
+        <div class="p-top"><span class="avatar" style="background:#B8860B">EW</span><div><h4>Elena Whitfield, 52</h4><span class="p-role">Chief Procurement Officer, corporate buyer</span></div></div>
+        <div class="p-cols">
+          <div><h5>Goals</h5><ul><li>Report diverse spend to the board</li><li>Compare quarter over quarter</li><li>De risk the supply chain</li></ul></div>
+          <div><h5>Frustrations</h5><ul><li>Waiting weeks for analyst decks</li><li>No live view of coverage</li><li>Numbers without context</li></ul></div>
+        </div>
+        <blockquote>"I answer to the board with numbers, not intentions."</blockquote>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="strategy">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker"><b>04</b> Experience Strategy</p>
+      <h2>From insights to a plan the whole team could rally behind</h2>
+    </header>
+    <div class="hmw">
+      <div class="hmw-card reveal">How might we take a buyer from a blank search box to a validated shortlist in under five minutes?</div>
+      <div class="hmw-card reveal">How might we make certification status impossible to miss at every step of discovery?</div>
+      <div class="hmw-card reveal">How might we turn scattered supplier records into one governed source of truth a whole team can trust?</div>
+    </div>
+    <div class="principles">
+      <div class="principle reveal"><span>01</span><h4>Minutes, not weeks</h4><p>Every screen is tuned for the shortest honest path from question to shortlist.</p></div>
+      <div class="principle reveal"><span>02</span><h4>Trust by default</h4><p>Ownership and certification data are always visible, never buried behind clicks.</p></div>
+      <div class="principle reveal"><span>03</span><h4>Team ready</h4><p>Favorites, roles, and shared workspaces mirror how buying decisions really happen.</p></div>
+      <div class="principle reveal"><span>04</span><h4>Calm density</h4><p>Rich tables and charts that stay scannable, sortable, and honest.</p></div>
+    </div>
+
+    <p class="sub-h">Information architecture</p>
+    <div class="ia reveal">
+      <div class="ia-root">GODIVERSE <small>Main Platform</small></div>
+      <div class="ia-connect"><i class="l"></i><i class="r"></i></div>
+      <div class="ia-grid">
+
+        <div class="branch">
+          <div class="branch-head">
+            <span class="branch-node">Login</span>
+            <p class="branch-sub">Returning users, straight to work</p>
+          </div>
+          <ul class="tl">
+            <li class="has-kids">
+              <div class="node hub">Buyers Dashboard</div>
+              <ul class="tl">
+                <li>
+                  <div class="node">Manage profile</div>
+                  <div class="detail"><b>Personal information</b>first name · last name · job title · LinkedIn · phone number</div>
+                </li>
+                <li>
+                  <div class="node">Manage your team</div>
+                  <div class="detail"><b>Team list</b>name · email · job title · remove button · make admin</div>
+                  <div class="hop"><i>→</i> invitation link <i>→</i> email verification</div>
+                </li>
+                <li><div class="node">Data enrichment</div></li>
+                <li><div class="node">My saved list</div></li>
+                <li>
+                  <div class="node">Unified search</div>
+                  <div class="hop"><i>→</i> search results <i>→</i> compare suppliers</div>
+                </li>
+              </ul>
+            </li>
+            <li><div class="node dash">Flow to Signup</div></li>
+          </ul>
+          <div class="ia-legend">
+            <span><i class="lg"></i>Screen</span>
+            <span><i class="lg lg-hub"></i>Workspace hub</span>
+            <span><i class="lg lg-gate"></i>Verification gate</span>
+            <span><i class="lg lg-ok"></i>Approved</span>
+            <span><i class="lg lg-no"></i>Declined</span>
+            <span><i class="lg lg-detail"></i>Field level spec</span>
+          </div>
+        </div>
+
+        <div class="branch">
+          <div class="branch-head">
+            <span class="branch-node">Signup</span>
+            <p class="branch-sub">First time users, two very different doors</p>
+          </div>
+          <ul class="tl">
+            <li>
+              <div class="node">Buyers</div>
+              <div class="hop"><i>→</i> get in touch <i>→</i> request a demo</div>
+            </li>
+            <li class="has-kids">
+              <div class="node">Suppliers</div>
+              <div class="hop"><i>→</i> email verification <i>→</i> registration <em>(input: business email + OTP)</em></div>
+              <ul class="tl">
+                <li>
+                  <div class="node">Personal information</div>
+                  <div class="detail"><b>Fields</b>first name · last name · job title · LinkedIn · phone number</div>
+                </li>
+                <li class="has-kids">
+                  <div class="node">Choose your company</div>
+                  <ul class="tl">
+                    <li><div class="node">Create a new company</div></li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="node gate">Diversity information</div>
+                  <div class="detail"><b>Declaration</b>names of all directors · percentage of business owned · women owned y/n · ethnic background y/n · disability owned y/n · LGBTQ+ owned y/n · veteran owned y/n · certification benefits · upload all certificates</div>
+                  <div class="hop"><i>→</i> new diversity information <em>(update and resubmit)</em></div>
+                </li>
+                <li><div class="node">Accepting terms &amp; conditions</div></li>
+                <li class="has-kids">
+                  <div class="node gate">Approval status</div>
+                  <ul class="tl">
+                    <li>
+                      <div class="node no">Declined</div>
+                      <div class="hop"><i>→</i> resubmit via new diversity information</div>
+                    </li>
+                    <li><div class="node ok">Approved</div></li>
+                  </ul>
+                </li>
+                <li class="has-kids">
+                  <div class="node hub">Supplier dashboard</div>
+                  <ul class="tl">
+                    <li><div class="node">Manage company profile</div></li>
+                    <li><div class="node">Manage team</div></li>
+                    <li><div class="node">Manage personal profile</div></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="funnel">
+        <h4>From declaration to trusted badge</h4>
+        <p>The supplier side of this architecture is the trust engine for the buyer side. Every diversity claim is declared at director level with ownership percentages, backed by uploaded certificates, and human reviewed before it ever reaches a search result. Declined applications loop back through New Diversity information instead of dead ending.</p>
+        <div class="funnel-steps">
+          <span>Business email + OTP</span><i>→</i>
+          <span>Personal information</span><i>→</i>
+          <span>Choose or create company</span><i>→</i>
+          <span>Diversity declaration</span><i>→</i>
+          <span>Certificates uploaded</span><i>→</i>
+          <span>Terms accepted</span><i>→</i>
+          <span class="hot">Human review</span><i>→</i>
+          <span class="ok">Approved</span><i>→</i>
+          <span class="badge">Verified badge in search</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="sub-h" style="margin-top:56px">The money flow: question to shortlist</p>
+    <ol class="flow reveal">
+      <li class="fstep"><span>1</span><strong>Start with a keyword</strong><em>"Manchester"</em></li>
+      <li class="fstep"><span>2</span><strong>Refine with filters</strong><em>Industry, diversity type, size</em></li>
+      <li class="fstep"><span>3</span><strong>Scan the results</strong><em>Sortable, comparable rows</em></li>
+      <li class="fstep"><span>4</span><strong>Open a profile</strong><em>Verify certification in place</em></li>
+      <li class="fstep"><span>5</span><strong>Save to favorites</strong><em>A durable shortlist</em></li>
+      <li class="fstep"><span>6</span><strong>Share with the team</strong><em>Invite link and roles</em></li>
+    </ol>
+  </div>
+</section>
+
+<section id="system">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker"><b>05</b> Design System</p>
+      <h2>Consistency engineered, not hoped for</h2>
+      <p class="lead">The product spans search, tables, profiles, and analytics, so I built a compact system the whole team could assemble screens from without me in the room.</p>
+    </header>
+    <div class="ds-colors">
+      <div class="swatch reveal"><div class="swatch-fill" style="background:#0E7A54"></div><div class="swatch-info"><strong>Emerald</strong><span>#0E7A54</span><small>Primary actions, links, active states</small></div></div>
+      <div class="swatch reveal"><div class="swatch-fill" style="background:#14263A"></div><div class="swatch-info"><strong>Deep Navy</strong><span>#14263A</span><small>Navigation rail, headings, data ink</small></div></div>
+      <div class="swatch reveal"><div class="swatch-fill" style="background:#E7F4EC"></div><div class="swatch-info"><strong>Mint</strong><span>#E7F4EC</span><small>Highlight surfaces, decision callouts</small></div></div>
+      <div class="swatch reveal"><div class="swatch-fill" style="background:#FAF8F2;border-bottom:1px solid #E5E0D3"></div><div class="swatch-info"><strong>Canvas</strong><span>#FAF8F2</span><small>Warm app background, softer than white</small></div></div>
+      <div class="swatch reveal"><div class="swatch-fill" style="background:#F2EFE7"></div><div class="swatch-info"><strong>Chalk</strong><span>#F2EFE7</span><small>Filter chips, inactive fills</small></div></div>
+    </div>
+    <div class="viz reveal"><b>Chart palette</b><span class="vdot" style="background:#2FA98C"></span><span class="vdot" style="background:#F2B33D"></span><span class="vdot" style="background:#F26A5E"></span><span class="vdot" style="background:#8B7BF0"></span><span class="vdot" style="background:#5B9BF0"></span><span class="vdot" style="background:#7BA05B"></span><span style="font-size:13px;color:var(--soft)">One hue per ownership group, reused consistently between the donut, map, and tables.</span></div>
+    <div class="ds-2col">
+      <div class="spec-card reveal">
+        <h4>Typography</h4>
+        <p>Inter across the product, with tabular numerals for tables and KPIs so columns and figures always align. Space Grotesk is reserved for the welcome and empty states, where personality matters most.</p>
+        <div class="spec"><span class="spec-label">Display, Space Grotesk 600, 28</span><p class="s1">Find the UK's best diverse businesses</p></div>
+        <div class="spec"><span class="spec-label">Section title, Inter 600, 22</span><p class="s2">Supplier detail overview</p></div>
+        <div class="spec"><span class="spec-label">Body, Inter 400, 15.5</span><p class="s3">Eco Tech Innovation Inc. is a sustainable technology provider founded in 2001.</p></div>
+        <div class="spec"><span class="spec-label">Data, Inter 500 tabular, 15</span><p class="s4">750 suppliers, 3000 employees, est. 2001</p></div>
+      </div>
+      <div class="spec-card reveal">
+        <h4>Components in the wild</h4>
+        <p>The same small kit built every screen in this case study: badges, filter chips, one primary action, and meters that show truth.</p>
+        <div class="comp" style="border:0;padding:16px 0 0">
+          <span class="comp-label">Diversity badges</span>
+          <div class="chips">
+            <span class="chip" style="background:#E7F4EC;color:#0A5C40">Women owned</span>
+            <span class="chip" style="background:#FCF1DC;color:#9A6A12">Ethnic minority owned</span>
+            <span class="chip" style="background:#EFECFE;color:#5C4BD6">LGBTQ+ owned</span>
+            <span class="chip" style="background:#E7F0FE;color:#2B62B8">Veteran owned</span>
+            <span class="chip" style="background:#FDEBE9;color:#B44A3F">Disabled owned</span>
+            <span class="chip" style="background:#E3F2ED;color:#177A5E">Social enterprise</span>
+          </div>
+        </div>
+        <div class="comp" style="border:0;padding:16px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div><span class="comp-label">Active filter</span><span class="chip" style="background:#14263A;color:#fff">Professional Services <i>&times;</i></span></div>
+          <div><span class="comp-label">Primary action</span><a class="btn-demo" href="#features">Invite link</a></div>
+          <div><span class="comp-label">Profile strength</span><div class="meter"><i style="width:40%"></i></div><span class="meter-val">40%</span></div>
+          <div><span class="comp-label">KPI tile</span><div class="kpi-mini"><small>Total diverse</small><b>750</b></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker"><b>06</b> Product Walkthrough</p>
+      <h2>Eight moments that carry the experience</h2>
+      <p class="lead">Each screen below serves one of the six steps in the money flow. No dead ends, no decoration without a job.</p>
+    </header>
+
+    <div class="feature">
+      <div class="f-media reveal">
+        <figure class="shot">
+          <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk/welcome</span></div>
+          <img src="https://z-cdn-media.chatglm.cn/files/51653929-80f7-4fb5-ba46-b9950336e572.png?auth_key=1890686921-7c46fdfa73b4451faaad8cf89f094217-0-5d7b080cd87161ab3004aa644d053f11" alt="Welcome to GoDiverse screen with Corporate and Supplier options and supporting illustration">
+        </figure>
+        <figure class="shot small">
+          <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk/signin</span></div>
+          <img src="https://z-cdn-media.chatglm.cn/files/a630e08c-55b0-4999-b762-8eaa56b3e743.png?auth_key=1890686921-d5ba8a9a0bd04d239daf24b63bc38455-0-6966239a95d57e278cdba0c174d37426" alt="Sign in and sign up screen with email, full name and terms fields beside an illustration">
+        </figure>
+        <div class="shot-cap"><span>Role selection and authentication</span><span>Screens 01 to 02</span></div>
+      </div>
+      <div class="reveal">
+        <p class="f-num"><i>01</i> Onboarding</p>
+        <h3>One question before anything else</h3>
+        <p>The welcome screen asks a single question: which option describes you? One tap decides the entire workspace. Buyers are handed to a guided get in touch flow to request a demo, matching how enterprise procurement actually buys. Suppliers dive straight into self-serve registration with a business email and OTP verification, then personal details, company selection, and a full diversity declaration. The companion auth screen keeps the same calm illustration language and pairs a one field sign in with a lightweight sign up, so returning users never re register and new ones never hit a wall of forms.</p>
+        <div class="decision"><b>Design decision</b>We tested a three step wizard first. Users hesitated at step two every single time, and a single binary choice removed the hesitation entirely. Routing buyers to a demo request rather than self-serve signup also matched the enterprise sales motion we heard about in stakeholder interviews.</div>
+      </div>
+    </div>
+
+    <div class="feature flip">
+      <div class="f-media reveal">
+        <figure class="shot">
+          <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk/search</span></div>
+          <img src="https://z-cdn-media.chatglm.cn/files/3431a630-76e4-456b-b655-eabbe0bb086e.png?auth_key=1890686921-88598ad9ef544f85b1bf2103b0c46aa6-0-af4625a6377353a13903894c8a101c2c" alt="Unified Search screen with the question What are you looking for, the keyword Manchester in the search field, and one tap suggestion chips">
+        </figure>
+        <div class="shot-cap"><span>Unified Search with one tap keyword chips</span><span>Screen 03</span></div>
+      </div>
+      <div class="reveal">
+        <p class="f-num"><i>02</i> Unified Search</p>
+        <h3>Search that speaks human</h3>
+        <p>Discovery begins with one question: what are you looking for? A buyer types Manchester and the database responds instantly. One tap keyword chips cover the most common queries, from London to Women Owned Business. Advanced structure waits politely behind a single Filters button instead of crowding the first screen.</p>
+        <div class="decision"><b>Design decision</b>Buyers think in natural language, like women owned firms near Manchester, not in field by field queries. A single search field plus suggestion chips matched the mental model we heard in every interview.</div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="f-media reveal">
+        <figure class="shot">
+          <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk/search?q=glass</span></div>
+          <img src="https://z-cdn-media.chatglm.cn/files/2bdce505-f275-4516-92c4-620920db4516.png?auth_key=1890686921-74c675b66fac45d6a025e4d7affb5cf2-0-fdd209350834f79f8f1069b984874331" alt="Search results table for Glass and Glassware with active filter chips, a filters sidebar and a compare button">
+        </figure>
+        <div class="shot-cap"><span>Results table with active filters as removable chips</span><span>Screen 04</span></div>
+      </div>
+      <div class="reveal">
+        <p class="f-num"><i>03</i> Results</p>
+        <h3>Results built for the scan</h3>
+        <p>The results table carries the product's core promise in one row: company, industry, diversity type, business size, location, and employee count. Active filters live as removable chips above the table, so the current query is always legible and always reversible. A compare toggle marks rows for side by side evaluation.</p>
+        <div class="decision"><b>Iteration</b>An early card grid tested poorly with buyers who live in spreadsheets. The dense, sortable table cut time to shortlist by more than half in the next round of testing.</div>
+      </div>
+    </div>
+
+    <div class="feature flip">
+      <div class="f-media reveal">
+        <figure class="shot">
+          <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk/supplier/eco-tech</span></div>
+          <img src="https://z-cdn-media.chatglm.cn/files/70bea968-b1a1-494f-93c4-e4b6819f3a4a.png?auth_key=1890686921-f8a74a4625aa4dd49f16cfb46b040504-0-73e077c8e4c19aeebe5515fef5df1cf5" alt="Supplier detail panel for Eco Tech Innovation Inc showing overview, contact details and leadership team beside the results list">
+        </figure>
+        <div class="shot-cap"><span>Supplier detail opened in place, results preserved</span><span>Screen 05</span></div>
+      </div>
+      <div class="reveal">
+        <p class="f-num"><i>04</i> Supplier detail</p>
+        <h3>Depth without losing context</h3>
+        <p>Clicking a row opens a detail panel for suppliers like Eco Tech Innovation Inc.: a plain language overview, founding year, industry classification, headquarters, the leadership team, and direct contact details, without leaving the results behind. Buyers confirm fit in seconds and return exactly where they left off.</p>
+        <div class="decision"><b>Design decision</b>A separate profile page meant a full navigation away and a broken back button state. The overlay kept results alive underneath, and buyers scanned three suppliers in the time one page load used to take.</div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="f-media reveal">
+        <figure class="shot">
+          <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk/saved-list</span></div>
+          <img src="https://z-cdn-media.chatglm.cn/files/84d9a6e6-4189-484a-948e-dee96b23c5a7.png?auth_key=1890686921-505a718ce13742708eb2c4ae524c1c0d-0-3ded43af6df175db656deed1583bd3d6" alt="My saved list workspace listing saved suppliers with active filter chips and pagination showing 10 of 40 entries">
+        </figure>
+        <div class="shot-cap"><span>My saved list workspace with persisted filters</span><span>Screen 06</span></div>
+      </div>
+      <div class="reveal">
+        <p class="f-num"><i>05</i> My Saved List</p>
+        <h3>Shortlists that stick</h3>
+        <p>Buyers save suppliers into My Saved List, a dedicated workspace where active filters persist as chips. A shortlist becomes a durable artifact: revisit it next week, refine it with new filters, and hand it to the team ready to argue with. Pagination keeps large sets honest, 10 of 40 entries, with no infinite scroll ambush.</p>
+        <div class="decision"><b>Design decision</b>Shortlists used to be copy pasted into email. Giving them a permanent home with visible filters ended the version chaos we heard about in the diary study.</div>
+      </div>
+    </div>
+
+    <div class="feature flip">
+      <div class="f-media reveal">
+        <figure class="shot">
+          <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk/company-profile</span></div>
+          <img src="https://z-cdn-media.chatglm.cn/files/968134df-650b-4ac0-8a2a-af4ab753b26b.png?auth_key=1890686921-562bcc60abab418786f02c57a4606642-0-7fd33842b440b6a303d619a50ba61f33" alt="Supplier company profile editor for Eco Tech Innovation Inc with a 40 percent completion meter, overview, contact details, leadership and company details">
+        </figure>
+        <div class="shot-cap"><span>Supplier side profile editor with strength meter</span><span>Screen 07</span></div>
+      </div>
+      <div class="reveal">
+        <p class="f-num"><i>06</i> Supplier side</p>
+        <h3>Profiles worth trusting</h3>
+        <p>Suppliers build the other half of the database. The company profile editor mirrors exactly what buyers see: overview, contact details, leadership, and firm facts like industry, founding year, and size. A completion meter shows progress at a glance and nudges richer data, because every completed field is a better answer to someone else's search.</p>
+        <div class="decision"><b>Design decision</b>A visible percentage meter with clear next fields beat badge gamification in testing. Suppliers wanted to know what was missing, not how they ranked.</div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="f-media reveal">
+        <figure class="shot">
+          <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk/team</span></div>
+          <img src="https://z-cdn-media.chatglm.cn/files/09059883-eea7-4356-bf00-0b5dcb173497.png?auth_key=1890686921-c424da440bfe4fcdae3f93d176e55990-0-12471d1eadf9fd0e43e03d6499f6694f" alt="Manage Your Team screen with the team roster table showing name, email, job title, remove and admin controls, plus an Invite Link button">
+        </figure>
+        <div class="shot-cap"><span>Team roster with inline roles and email verified invites</span><span>Screen 08</span></div>
+      </div>
+      <div class="reveal">
+        <p class="f-num"><i>07</i> Team management</p>
+        <h3>Procurement is a team sport</h3>
+        <p>Enterprise buyers invite colleagues with a shareable link, verify them over email, and manage the roster from one table: name, job title, and role at a glance, with a one tap make admin and an inline remove. Ownership stays visible so accountability is never a mystery, and permissions never require a separate settings maze.</p>
+        <div class="decision"><b>Design decision</b>One invite link beat individual email invites for enterprise onboarding: an admin drops the link in an internal channel, email verification keeps the roster clean, and the workspace fills itself.</div>
+      </div>
+    </div>
+
+    <div class="feature flip">
+      <div class="f-media reveal">
+        <figure class="shot small">
+          <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk/enrichment/upload</span></div>
+          <img src="https://z-cdn-media.chatglm.cn/files/926817d1-bc85-4bfe-9cce-cb7767c7fd77.png?auth_key=1890686921-a808356cf39f41a0a7fdced5f8c2cf5f-0-ada5380e507e353519b5424487f7dfaf" alt="Data Enrichment upload screen with a drag and drop CSV area and a list of selectable files to process">
+        </figure>
+        <figure class="shot">
+          <div class="shot-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="shot-url">godiverse.co.uk/enrichment/dashboard</span></div>
+          <img src="https://z-cdn-media.chatglm.cn/files/45dd64d3-acf4-43f6-94a8-81242a7d9f01.png?auth_key=1890686921-420102cf3c5c4a65a8be34db32ed2153-0-29880d4ec2aa93c1a1f7fd483700da1d" alt="Data Enrichment dashboard with KPI tiles for total diverse, spend, certified and self identified figures, an ownership donut chart, a supplier regions map and a top regions table">
+        </figure>
+        <div class="shot-cap"><span>Upload flow and the enrichment dashboard</span><span>Screens 09 to 10</span></div>
+      </div>
+      <div class="reveal">
+        <p class="f-num"><i>08</i> Data Enrichment</p>
+        <h3>From CSV to boardroom story</h3>
+        <p>Teams upload supplier or spend CSVs, select the files to process, and submit. GoDiverse enriches each record with verified diversity data. The dashboard then answers leadership's questions in order: total diverse suppliers, spend amounts, the split between certified and self identified, ownership mix by group in one donut, and regional concentration on a live map backed by a top regions table. In the pilot workspace, 750 records flowed through in a single quarter.</p>
+        <div class="decision"><b>Design decision</b>The four KPI tiles sit above the fold, then the donut, map, and table answer follow up questions in the order stakeholders actually ask them: who, where, and how much. Past enrichment files stay in the rail so quarter over quarter comparison is one click away.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker"><b>07</b> Impact</p>
+      <h2>What changed when the database got unified</h2>
+      <p class="lead">Results below combine moderated usability testing with 12 participants and pilot workspace analytics from the first enrichment quarter.</p>
+    </header>
+    <div class="stats">
+      <div class="stat reveal"><span class="n">4.2 min</span><span class="u">Time to shortlist</span><p>Average from first search to a five supplier shortlist, down from days of manual reconciliation.</p></div>
+      <div class="stat reveal"><span class="n">92%</span><span class="u">Task success</span><p>Across six core flows with first time users in moderated testing.</p></div>
+      <div class="stat reveal"><span class="n">34%</span><span class="u">Profile completion</span><p>Lift in supplier profile completion after the strength meter shipped.</p></div>
+      <div class="stat reveal"><span class="n">750</span><span class="u">Records enriched</span><p>Supplier records enriched and verified in the pilot quarter, all in one workspace.</p></div>
+    </div>
+    <div class="quotes">
+      <div class="quote reveal">
+        <p>"The first time I built a validated shortlist before my coffee went cold, I knew this was a different tool."</p>
+        <div class="who"><span class="avatar" style="background:#0E7A54">SD</span><span><strong>Supplier Diversity Lead</strong>Tier 1 supplier, pilot customer</span></div>
+      </div>
+      <div class="quote reveal">
+        <p>"I finally understand what our diversity data is trying to tell us. The board deck writes itself now."</p>
+        <div class="who"><span class="avatar" style="background:#8B7BF0">HP</span><span><strong>Head of Procurement</strong>Corporate pilot workspace</span></div>
+      </div>
+    </div>
+    <p class="note reveal"><strong>Beyond the numbers:</strong> discovery moved from days of manual reconciliation to minutes of guided search, and reporting moved from hand built quarterly decks to a dashboard that is always current.</p>
+  </div>
+</section>
+
+<section id="reflection">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker"><b>08</b> Reflection</p>
+      <h2>What I am taking to the next project</h2>
+    </header>
+    <div class="learnings">
+      <div class="learning reveal"><span>Learning 01</span><h4>Design for the spreadsheet brain</h4><p>In B2B tools, density done well beats whitespace done for its own sake. Ship tables that respect the people who live in columns and rows.</p></div>
+      <div class="learning reveal"><span>Learning 02</span><h4>Trust is a UI element</h4><p>A certification chip did more for buyer confidence than any copy we wrote. Show the evidence exactly where the decision happens.</p></div>
+      <div class="learning reveal"><span>Learning 03</span><h4>One fork, then get out of the way</h4><p>The single role question outperformed every onboarding pattern we tried because it asks once and never nags again.</p></div>
+      <div class="learning reveal"><span>Learning 04</span><h4>Data needs a storyteller</h4><p>The enrichment dashboard landed because it answered questions in the order stakeholders ask them, not the order the database stores them.</p></div>
+    </div>
+    <div class="next reveal">
+      <h4>If I had the next sprint, I would push for</h4>
+      <ul>
+        <li>Saved search alerts that notify buyers when new matching suppliers join the database</li>
+        <li>In app messaging connecting buyers and suppliers at the exact moment of intent</li>
+        <li>One click board reports in corporate branding, generated straight from the dashboard</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p class="kicker reveal" style="color:#7E93A6"><b style="background:#0E7A54">Thanks</b> For scrolling all the way</p>
+    <h2 class="reveal">Let's design products people trust.</h2>
+    <p class="lead reveal" style="max-width:620px">If you would like to walk through the full prototype, the design system file, or just compare notes on B2B discovery experiences, my inbox is open.</p>
+    <div class="cta-row reveal">
+      <a class="cta primary" href="mailto:hello@yourdomain.com">Email me</a>
+      <a class="cta ghost" href="#" rel="noopener">Connect on LinkedIn</a>
+    </div>
+    <div class="foot-note">
+      <span>GoDiverse Unified Database case study, designed and written by khushal.</span>
+      <span>Product screens shown belong to the GoDiverse platform.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Reveal on scroll
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Scrollspy for nav
+const links = [...document.querySelectorAll('.nav-links a')];
+const spy = new IntersectionObserver((es)=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(l=>l.classList.toggle('active', l.getAttribute('href') === '#'+e.target.id));
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>spy.observe(s));
+
+// Graceful screenshot fallback: if any image fails, keep the browser frame intact
+document.querySelectorAll('.shot img').forEach(img=>{
+  const showFallback = ()=>{
+    if(img.dataset.fbk) return;
+    img.dataset.fbk = '1';
+    img.style.display = 'none';
+    const d = document.createElement('div');
+    d.className = 'shot-fallback';
+    d.textContent = 'Screenshot unavailable. Drop your hosted image into this frame.';
+    img.closest('.shot').appendChild(d);
+  };
+  img.addEventListener('error', showFallback);
+  if(img.complete && img.naturalWidth === 0) showFallback();
+});
+</script>
+</body>
+</html>
